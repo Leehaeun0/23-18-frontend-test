@@ -10,15 +10,19 @@ const NumberAdjuster = ({ onClick }: Props) => {
   const isMinimum = value === 1;
 
   const decreaseValue = () => {
-    const newValue = value - 1;
-    setValue(newValue);
-    onClick(newValue);
+    setValue((prevState) => {
+      const newValue = prevState - 1;
+      onClick(newValue);
+      return newValue;
+    });
   };
 
   const increaseValue = () => {
-    const newValue = value + 1;
-    setValue(newValue);
-    onClick(newValue);
+    setValue((prevState) => {
+      const newValue = prevState + 1;
+      onClick(newValue);
+      return newValue;
+    });
   };
 
   return (

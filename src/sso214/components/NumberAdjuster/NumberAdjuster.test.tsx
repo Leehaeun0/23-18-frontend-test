@@ -4,7 +4,7 @@ import NumberAdjuster from './NumberAdjuster';
 
 function renderNumberAdjuster() {
   const mockOnClick = jest.fn();
-  const result = render(<NumberAdjuster onClick={mockOnClick} />);
+  const result = render(<NumberAdjuster onChange={mockOnClick} />);
 
   const DecreaseButton = () => result.getByTestId('decreaseButton');
   const IncreaseButton = () => result.getByTestId('increaseButton');

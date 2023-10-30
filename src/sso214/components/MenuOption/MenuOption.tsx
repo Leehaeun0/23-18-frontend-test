@@ -54,7 +54,7 @@ const MenuOption = ({ menu }: Props) => {
 
         <li>
           <p>수량</p>
-          <NumberAdjuster onClick={(num) => console.log(num)} />
+          <NumberAdjuster onChange={(num) => console.log(num)} />
         </li>
       </ol>
 

@@ -26,7 +26,7 @@ const NumberAdjuster = ({ onChange }: Props) => {
   };
 
   return (
-    <div className={S.numberAdjuster}>
+    <div className={S.numberAdjuster} data-testid="numberAdjuster">
       <button type="button" onClick={decreaseValue} disabled={isMinimum} data-testid="decreaseButton">
         {'<'}
       </button>

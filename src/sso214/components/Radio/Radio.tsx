@@ -6,7 +6,10 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Radio = ({ children, defaultChecked, onChange, ...rest }: Props) => {
-  const [isChecked, setIsChecked] = useState(defaultChecked);
+  const [
+    isChecked,
+    // setIsChecked
+  ] = useState(defaultChecked);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e.target.value);

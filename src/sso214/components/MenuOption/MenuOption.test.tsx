@@ -97,7 +97,7 @@ describe('<MenuOption />', () => {
   });
 
   it('버튼에 최종 가격이 표시된다.', () => {
-    const { SubmitButton } = renderMenuOption();
+    // const { SubmitButton } = renderMenuOption();
     //
   });
 

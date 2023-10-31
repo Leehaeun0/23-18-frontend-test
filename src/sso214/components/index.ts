@@ -5,4 +5,4 @@ export * from './MenuList';
 export * from './Menu';
 export * from './NumberAdjuster';
 export * from './MenuOption';
-export * from './Radio';
+export * from './Radios';

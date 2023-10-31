@@ -14,7 +14,7 @@ function renderMenuOption(props?: Partial<MenuInfo>) {
   const PopularBadge = () => result.queryByTestId('popular');
   const Description = () => result.queryByTestId('description');
   const Price = () => result.queryByTestId('price');
-  const Prices = () => result.queryByTestId('prices');
+  const Prices = () => result.queryByTestId('radios');
   const PricesItem = () => result.queryAllByTestId('pricesItem');
   const NumberAdjuster = () => result.getByTestId('numberAdjuster');
   const SubmitButton = () => result.getByTestId('submitButton');

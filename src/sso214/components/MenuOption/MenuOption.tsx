@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { MenuInfo } from '../Menu/types';
 import Heading from '../Heading/Heading';
-import Radio from '../Radio/Radio';
 import NumberAdjuster from '../NumberAdjuster/NumberAdjuster';
+import Radios from '../Radios/Radios';
 
 interface Props {
   menu: MenuInfo;
@@ -59,22 +59,20 @@ const MenuOption = ({ menu }: Props) => {
               <span>필수</span>
             </div>
 
-            <fieldset data-testid="prices">
-              {options?.map((option, key) => (
-                <Radio
-                  key={key}
-                  name="prices"
-                  aria-label={option.name}
-                  value={option.price}
-                  onChange={handleRadios}
-                >
+            <Radios
+              name="prices"
+              onChange={handleRadios}
+              data={options?.map(({ name, price }) => ({
+                label: name,
+                value: price,
+                el: (
                   <div data-testid="pricesItem">
-                    <p>{option?.name}</p>
-                    <p>{option.price}원</p>
+                    <p>{name}</p>
+                    <p>{price}원</p>
                   </div>
-                </Radio>
-              ))}
-            </fieldset>
+                ),
+              }))}
+            />
           </li>
         )}
 

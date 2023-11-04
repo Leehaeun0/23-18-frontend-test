@@ -83,11 +83,10 @@ const MenuOption = (props: MenuInterface) => {
               cart.push(newItem);
             }
             const newPrice = Number(accumulatePrice) + quantity * price;
-            navigate(`/store/${storeId}?data=${encodeBase64(cart)}&price=${newPrice}`);
+            navigate(`/store/${storeId}?data=${encodeBase64(cart)}&price=${encodeBase64(newPrice)}`);
           }}
         >
           {(quantity * price).toLocaleString()}원 담기
-          {/* menuId, amount */}
         </button>
       </footer>
     </div>

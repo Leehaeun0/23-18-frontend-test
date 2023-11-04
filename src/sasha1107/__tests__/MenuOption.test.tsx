@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MenuOption from '../components/MenuOption';
 import type { MenuInterface } from '../types';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 const mock: MenuInterface = {
   id: 1,
   name: '[부산] 가래떡 떡볶이',
@@ -16,11 +16,7 @@ const mock: MenuInterface = {
 };
 
 const renderMenuOption = (props?: Partial<MenuInterface>) => {
-  return render(
-    <Router>
-      <MenuOption {...mock} {...props} />
-    </Router>,
-  );
+  return render(<MenuOption {...mock} {...props} />, { wrapper: BrowserRouter });
 };
 
 describe('MenuOption Component', () => {

@@ -2,15 +2,11 @@ import { getByRole, render } from '@testing-library/react';
 import menuData from '../constants/menu.json';
 import { MenuList } from '../components';
 import type { MenuListInterface } from '../types';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 const mockData: MenuListInterface = menuData;
 
 const renderMenuList = () => {
-  return render(
-    <Router>
-      <MenuList data={mockData} />
-    </Router>,
-  );
+  return render(<MenuList data={mockData} />, { wrapper: BrowserRouter });
 };
 describe('Menu Component', () => {
   it('should render Card component', () => {

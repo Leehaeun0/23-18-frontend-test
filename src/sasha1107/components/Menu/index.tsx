@@ -1,9 +1,20 @@
-import type { MenuInterface } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { useQueryString } from '../../hooks';
+import { useParams } from 'react-router-dom';
+import type { MenuInterface } from '../../types';
 
 const Menu = ({ data }: { data: MenuInterface }) => {
-  const { name, image, description, isPopular, tags, options } = data;
+  const { name, image, description, isPopular, tags, options, id } = data;
+  const { queryString } = useQueryString();
+  const { storeId } = useParams();
+  const navigate = useNavigate();
   return (
-    <li className="card">
+    <li
+      className="card"
+      onClick={() => {
+        navigate(`/store/${storeId}/menu/${id}${queryString}`);
+      }}
+    >
       <div className="content">
         <div className="title">
           {name}

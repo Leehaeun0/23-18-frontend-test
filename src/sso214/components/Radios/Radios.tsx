@@ -5,7 +5,7 @@ type DefaultInput = React.InputHTMLAttributes<HTMLInputElement>;
 export interface Props {
   name: DefaultInput['name'];
   defaultValue?: DefaultInput['value'];
-  onChange: (e) => void;
+  onChange: (v: DefaultInput['value']) => void;
   data: {
     label: string;
     value: DefaultInput['value'];
@@ -23,9 +23,9 @@ const Radios = ({ name, defaultValue, onChange, data }: Props) => {
   };
 
   return (
-    <fieldset data-testid="fieldset">
+    <fieldset data-testid="radioGroup">
       {data.map(({ label, value, el }, index) => (
-        <label key={index} data-testid="label">
+        <label key={index} data-testid="radioItem">
           <input
             type="radio"
             aria-label={label}

@@ -1,12 +1,8 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { MenuInfo } from '../Menu/types';
 import Heading from '../Heading/Heading';
 import NumberAdjuster from '../NumberAdjuster/NumberAdjuster';
 import Radios from '../Radios/Radios';
-
-interface Props {
-  menu: MenuInfo;
-}
 
 interface FormValue {
   price: number;
@@ -14,25 +10,32 @@ interface FormValue {
   amount: number;
 }
 
-const MenuOption = ({ menu }: Props) => {
-  const [formValue, setFormValue] = useState<FormValue>({
-    price: 0,
-    quantity: 1,
-    amount: 0,
-  });
-  const { name, options, image, description, isPopular } = menu;
+interface Props {
+  menu: MenuInfo;
+  handleSubmit: (value: FormValue) => void;
+}
 
+const MenuOption = ({ menu, handleSubmit }: Props) => {
+  const { name, options, image, description, isPopular } = menu;
   const isMultiOption = options.length > 1;
 
-  const handleRadios = (price: number) => {
-    setFormValue(({ quantity }) => ({ price, quantity: quantity, amount: price * quantity }));
-  };
-  const handleNumberAdjuster = (quantity: number) => {
-    setFormValue(({ price }) => ({ price, quantity, amount: price * quantity }));
-  };
+  function reducer(state: FormValue, action: { name: keyof FormValue; value: FormValue[keyof FormValue] }) {
+    const multiplyTarget = action.name === 'price' ? state.quantity : state.price;
+    return {
+      ...state,
+      [action.name]: action.value,
+      amount: multiplyTarget * action.value,
+    };
+  }
+
+  const [state, dispatch] = useReducer(reducer, {
+    price: options[0].price || 0,
+    quantity: 1,
+    amount: options[0].price || 0,
+  });
 
   return (
-    <form data-testid="form">
+    <form data-testid="form" onSubmit={() => handleSubmit(state)}>
       {image && <img src={image} alt={name} data-testid="image" />}
 
       <div>
@@ -61,12 +64,12 @@ const MenuOption = ({ menu }: Props) => {
 
             <Radios
               name="prices"
-              onChange={handleRadios}
+              onChange={(value) => dispatch({ name: 'price', value: +value })}
               data={options?.map(({ name, price }) => ({
                 label: name,
-                value: price,
+                value: `${price}`,
                 el: (
-                  <div data-testid="pricesItem">
+                  <div>
                     <p>{name}</p>
                     <p>{price}원</p>
                   </div>
@@ -78,13 +81,13 @@ const MenuOption = ({ menu }: Props) => {
 
         <li>
           <p>수량</p>
-          <NumberAdjuster onChange={handleNumberAdjuster} />
+          <NumberAdjuster onChange={(value) => dispatch({ name: 'quantity', value })} />
         </li>
       </ol>
 
       <div>
         <button type="submit" data-testid="submitButton">
-          {formValue.amount}원 담기
+          {state.amount}원 담기
         </button>
       </div>
     </form>

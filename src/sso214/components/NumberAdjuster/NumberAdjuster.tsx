@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import S from './styles.module.css';
 
 interface Props {
@@ -9,21 +9,12 @@ const NumberAdjuster = ({ onChange }: Props) => {
   const [value, setValue] = useState(1);
   const isMinimum = value === 1;
 
-  const decreaseValue = () => {
-    setValue((prevState) => {
-      const newValue = prevState - 1;
-      onChange(newValue);
-      return newValue;
-    });
-  };
+  useEffect(() => {
+    onChange(value);
+  }, [value]);
 
-  const increaseValue = () => {
-    setValue((prevState) => {
-      const newValue = prevState + 1;
-      onChange(newValue);
-      return newValue;
-    });
-  };
+  const decreaseValue = () => setValue((prevState) => prevState - 1);
+  const increaseValue = () => setValue((prevState) => prevState + 1);
 
   return (
     <div className={S.numberAdjuster} data-testid="numberAdjuster">

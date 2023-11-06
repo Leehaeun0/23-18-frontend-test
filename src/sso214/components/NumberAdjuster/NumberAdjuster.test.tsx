@@ -69,11 +69,11 @@ describe('<NumberAdjuster />', () => {
     const { mockOnClick, clickIncreaseButton, clickDecreaseButton } = renderNumberAdjuster();
 
     await clickIncreaseButton();
-    expect(mockOnClick).toHaveBeenCalledTimes(1);
+    expect(mockOnClick).toHaveBeenCalledTimes(2);
     expect(mockOnClick).toHaveBeenLastCalledWith(2);
 
     await clickDecreaseButton();
-    expect(mockOnClick).toHaveBeenCalledTimes(2);
+    expect(mockOnClick).toHaveBeenCalledTimes(3);
     expect(mockOnClick).toHaveBeenLastCalledWith(1);
   });
 });

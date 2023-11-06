@@ -1,14 +1,12 @@
 import React, { useState, ChangeEvent } from 'react';
 
-type DefaultInput = React.InputHTMLAttributes<HTMLInputElement>;
-
 export interface Props {
-  name: DefaultInput['name'];
-  defaultValue?: DefaultInput['value'];
-  onChange: (v: DefaultInput['value']) => void;
+  name: string;
+  defaultValue?: string;
+  onChange: (v: string) => void;
   data: {
-    label: string;
-    value: DefaultInput['value'];
+    label?: string;
+    value: string;
     el: React.ReactNode | string;
   }[];
 }

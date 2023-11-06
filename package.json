@@ -47,6 +47,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-transform-stub": "^2.0.0",
     "jotai": "^2.5.0",
+    "msw": "^2.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
@@ -68,6 +69,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "jest-transform-css": "^6.0.1",
     "prettier": "^3.0.3",
-    "typescript-plugin-css-modules": "^5.0.1"
+    "typescript-plugin-css-modules": "^5.0.1",
+    "undici": "^5.27.2"
   }
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 
 export const CONTAINER_TAGS = ['ul', 'ol', 'div'];
-type containerTag = (typeof CONTAINER_TAGS)[number];
+type ContainerTag = (typeof CONTAINER_TAGS)[number];
 
 export interface Props<T> {
   data: T[];
   renderItem: ({ item: T }) => React.ReactNode;
   keyExtractor: (item: T) => string | number;
-  containerTag: containerTag;
+  containerTag: ContainerTag;
 }
 
 const List = <T extends Record<string, { idx: string }>>({

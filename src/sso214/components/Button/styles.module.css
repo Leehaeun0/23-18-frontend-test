@@ -1,0 +1,92 @@
+/*basic*/
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  transition: all .2s;
+}
+
+.button:disabled {
+  border: 1px solid #EBEBEB;
+  background: #F5F5F5;
+  color: #B2B2B2;
+  cursor: default;
+}
+
+.flexible {
+  display: flex;
+  flex: 1;
+}
+
+/*variant*/
+.first {
+  background: #FF00D5;
+  border: 1px solid #F500CC;
+  color: #fff;
+}
+.first:hover,
+.first:active {
+  background: #e101bc;
+}
+
+.second {
+  background: #292929;
+  border: 1px solid #1F1F1F;
+  color: #fff;
+}
+.second:hover,
+.second:active {
+  background: #222222;
+}
+
+.third {
+  background: #EBEBEB;
+  border: 1px solid #E0E0E0;
+  color: #525252;
+}
+.third:hover,
+.third:active {
+  background: #d3d3d3;
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #525252;
+}
+.ghost:hover,
+.ghost:active {
+  background: #f6f6f6;
+}
+
+.negative {
+  background: #FFE0E0;
+  border: 1px solid #FFCCCC;
+  color: #F53131;
+}
+.negative:hover,
+.negative:active {
+  background: #f6c6c6;
+}
+
+/*size*/
+.large {
+  min-width: 160px;
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 8px;
+}
+
+.medium {
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 8px;
+}
+
+.small {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 6px;
+}

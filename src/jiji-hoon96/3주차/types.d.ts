@@ -5,8 +5,7 @@ export interface MenuOptionsProps {
   review: number;
   optionSelect: boolean;
   selectList: { name: string; price: number }[] | [];
-  count: number;
-  image: string;
+  image: string | null;
   minOrderPrice: number;
-  totalPrice: number;
+  defaultPrice: number;
 }

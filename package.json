@@ -11,7 +11,7 @@
     "test:dohye1": "jest --watch --testPathPattern=dohye1",
     "test:sasha1107": "jest --watch --testPathPattern=sasha1107",
     "test:sso214": "jest --watch --testPathPattern=sso214",
-    "test:jiji-hoon96": "jest --watch --testPathPattern=jiji-hoon96",
+    "test:jiji-hoon96": "jest --watch --testPathPattern=jiji-hoon96/3주차",
     "test:codyMan0": "jest --watch --testPathPattern=codyMan0",
     "test:hojoon": "jest --watch --testPathPattern=hojoon"
   },

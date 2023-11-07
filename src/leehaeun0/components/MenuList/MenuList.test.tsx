@@ -7,7 +7,7 @@ describe('MenuList Component', () => {
     const { getByRole } = render(<MenuList data={MENU_DATA} />);
     const heading = getByRole('heading');
 
-    expect(heading).toHaveTextContent('따끈한 삼첩분식 신상');
+    expect(heading).toHaveTextContent(MENU_DATA.title);
   });
 
   it('메뉴 목록 갯수 확인', () => {

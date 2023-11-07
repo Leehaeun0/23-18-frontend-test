@@ -34,7 +34,7 @@ describe('MenuItem Component', () => {
   it('메뉴 옵션들이 올바르게 랜더링되는지 확인', () => {
     const { getByText } = render(<MenuItem data={MENU_ITEM} />);
     MENU_ITEM.options.forEach((option) => {
-      expect(getByText(`${option.name} : `)).toBeInTheDocument();
+      expect(getByText(`${option.name} :`)).toBeInTheDocument();
       expect(getByText(option.price.toString())).toBeInTheDocument();
     });
   });

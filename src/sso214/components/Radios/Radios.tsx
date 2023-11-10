@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
+import { TEST_ID } from '../../constant/TEST_ID';
 
 export interface Props {
   name: string;
@@ -21,9 +22,9 @@ const Radios = ({ name, defaultValue, onChange, data }: Props) => {
   };
 
   return (
-    <fieldset data-testid="radioGroup">
+    <fieldset data-testid={TEST_ID.RADIOS.RADIO_GROUP}>
       {data.map(({ label, value, el }, index) => (
-        <label key={index} data-testid="radioItem">
+        <label key={index} data-testid={TEST_ID.RADIOS.RADIO_ITEM}>
           <input
             type="radio"
             aria-label={label}

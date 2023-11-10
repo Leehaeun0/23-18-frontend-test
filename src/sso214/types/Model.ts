@@ -12,7 +12,7 @@ export interface MenuItem {
   tags?: string[];
 }
 
-export interface MenuList {
+export interface Menus {
   id: number;
   title: string;
   menus: MenuItem[];

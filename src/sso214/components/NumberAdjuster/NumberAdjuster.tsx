@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { TEST_ID } from '../../constant/TEST_ID';
 import S from './styles.module.css';
 
 interface Props {
@@ -17,14 +18,19 @@ const NumberAdjuster = ({ onChange }: Props) => {
   const increaseValue = () => setValue((prevState) => prevState + 1);
 
   return (
-    <div className={S.numberAdjuster} data-testid="numberAdjuster">
-      <button type="button" onClick={decreaseValue} disabled={isMinimum} data-testid="decreaseButton">
+    <div className={S.numberAdjuster} data-testid={TEST_ID.NUMBER_ADJUSTER.NUMBER_ADJUSTER}>
+      <button
+        type="button"
+        onClick={decreaseValue}
+        disabled={isMinimum}
+        data-testid={TEST_ID.NUMBER_ADJUSTER.DECREASE_BUTTON}
+      >
         {'<'}
       </button>
 
-      <p data-testid="value">{value}개</p>
+      <p data-testid={TEST_ID.NUMBER_ADJUSTER.VALUE}>{value}개</p>
 
-      <button type="button" onClick={increaseValue} data-testid="increaseButton">
+      <button type="button" onClick={increaseValue} data-testid={TEST_ID.NUMBER_ADJUSTER.INCREASE_BUTTON}>
         {'>'}
       </button>
     </div>

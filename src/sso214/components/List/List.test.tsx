@@ -1,23 +1,25 @@
 import { render } from '@testing-library/react';
+import { TEST_ID } from '../../constant/TEST_ID';
 import { MenuItem } from '../../types/Model';
 import snack_menu from '../../mock/snack_menu.json';
-import List, { Props, CONTAINER_TAGS } from './List';
+import { Props, CONTAINER_TAGS } from './List';
+import { CustomList } from './index';
 
 function renderList(props?: Partial<Props<MenuItem>>) {
   const DATA = snack_menu.menus;
 
   const result = render(
-    <List<MenuItem>
+    <CustomList<MenuItem>
       data={DATA}
-      renderItem={() => <li data-testid="item" />}
+      renderItem={() => <li data-testid={TEST_ID.LIST.ITEM} />}
       keyExtractor={(item) => item.name}
       containerTag="ol"
       {...props}
     />,
   );
 
-  const ListWrap = () => result.getByTestId('list');
-  const ListItems = () => result.queryAllByTestId('item');
+  const ListWrap = () => result.getByTestId(TEST_ID.LIST.LIST);
+  const ListItems = () => result.queryAllByTestId(TEST_ID.LIST.ITEM);
 
   return {
     DATA,

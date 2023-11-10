@@ -1,4 +1,5 @@
 import React from 'react';
+import { TEST_ID } from '../../constant/TEST_ID';
 import S from './style.module.css';
 
 export const HEADING_LEVEL = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
@@ -22,7 +23,11 @@ const Heading = ({ headingLevel, children, className = '', ...res }: Props) => {
   };
 
   return (
-    <Heading data-testid="heading" className={`${headingStyle[headingLevel]} ${className}`} {...res}>
+    <Heading
+      data-testid={TEST_ID.HEADING.HEADING}
+      className={`${headingStyle[headingLevel]} ${className}`}
+      {...res}
+    >
       {children}
     </Heading>
   );

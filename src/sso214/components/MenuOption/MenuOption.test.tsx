@@ -1,29 +1,30 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import snack_menu from '../../mock/snack_menu.json';
+import { TEST_ID } from '../../constant/TEST_ID';
 import { MenuItem } from '../../types/Model';
-import MenuOption from './MenuOption';
+import { CustomMenuOption } from './index';
 
 function renderMenuOption(props?: Partial<MenuItem>) {
   const DATA = snack_menu.menus[0] as Required<MenuItem>;
 
   const mockOnClick = jest.fn();
 
-  const result = render(<MenuOption menu={{ ...DATA, ...props }} handleSubmit={mockOnClick} />);
+  const result = render(<CustomMenuOption menu={{ ...DATA, ...props }} handleSubmit={mockOnClick} />);
 
-  const Form = () => result.getByTestId('form');
-  const Image = () => result.queryByTestId('image');
-  const Name = () => result.getByTestId('name');
-  const PopularBadge = () => result.queryByTestId('popular');
-  const Description = () => result.queryByTestId('description');
-  const Price = () => result.queryByTestId('price');
-  const Prices = () => result.queryByTestId('radioGroup');
-  const PricesItems = () => result.queryAllByTestId('radioItem');
+  const Form = () => result.getByTestId(TEST_ID.MENU_OPTION.FORM);
+  const Image = () => result.queryByTestId(TEST_ID.MENU.IMAGE);
+  const Name = () => result.getByTestId(TEST_ID.MENU.NAME);
+  const PopularBadge = () => result.queryByTestId(TEST_ID.MENU.POPULAR);
+  const Description = () => result.queryByTestId(TEST_ID.MENU.DESCRIPTION);
+  const Price = () => result.queryByTestId(TEST_ID.MENU.PRICE);
+  const Prices = () => result.queryByTestId(TEST_ID.RADIOS.RADIO_GROUP);
+  const PricesItems = () => result.queryAllByTestId(TEST_ID.RADIOS.RADIO_ITEM);
   const PricesItemsRadio = (index: number) => PricesItems()[index].children[0];
-  const NumberAdjuster = () => result.getByTestId('numberAdjuster');
-  const NumberAdjusterDecreaseButton = () => result.getByTestId('decreaseButton');
-  const NumberAdjusterIncreaseButton = () => result.getByTestId('increaseButton');
-  const SubmitButton = () => result.getByTestId('submitButton');
+  const NumberAdjuster = () => result.getByTestId(TEST_ID.NUMBER_ADJUSTER.NUMBER_ADJUSTER);
+  const NumberAdjusterDecreaseButton = () => result.getByTestId(TEST_ID.NUMBER_ADJUSTER.DECREASE_BUTTON);
+  const NumberAdjusterIncreaseButton = () => result.getByTestId(TEST_ID.NUMBER_ADJUSTER.INCREASE_BUTTON);
+  const SubmitButton = () => result.getByTestId(TEST_ID.MENU_OPTION.SUBMIT_BUTTON);
 
   async function clickRadio(index: number) {
     await userEvent.click(PricesItemsRadio(index));

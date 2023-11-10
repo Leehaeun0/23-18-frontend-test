@@ -1,17 +1,18 @@
 import { render } from '@testing-library/react';
+import { TEST_ID } from '../../constant/TEST_ID';
 import snack_menu from '../../mock/snack_menu.json';
-import MenuList from './MenuList';
+import { CustomMenuList } from './index';
 
 function renderMenuList() {
   const { menus, ...res } = snack_menu;
   const DATA = menus;
   const TITLE = '따끈한 삼첩분식 신상';
 
-  const result = render(<MenuList menus={DATA} {...res} />);
+  const result = render(<CustomMenuList menus={DATA} {...res} />);
 
-  const Title = () => result.getByTestId('title');
-  const List = () => result.queryByTestId('list');
-  const ListItems = () => result.queryAllByTestId('item');
+  const Title = () => result.getByTestId(TEST_ID.MENU_LIST.TITLE);
+  const List = () => result.queryByTestId(TEST_ID.MENU_LIST.LIST);
+  const ListItems = () => result.queryAllByTestId(TEST_ID.MENU_LIST.ITEM);
 
   return {
     DATA,

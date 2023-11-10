@@ -1,22 +1,23 @@
 import { render } from '@testing-library/react';
+import { TEST_ID } from '../../constant/TEST_ID';
 import { MenuItem } from '../../types/Model';
 import snack_menu from '../../mock/snack_menu.json';
-import Menu from './Menu';
+import { CustomMenu } from './index';
 
 function renderMenu(props?: Partial<MenuItem>) {
   const DATA = snack_menu.menus[0] as Required<MenuItem>;
 
-  const result = render(<Menu menu={{ ...DATA, ...props }} />);
+  const result = render(<CustomMenu menu={{ ...DATA, ...props }} />);
 
-  const Item = () => result.getByTestId('item');
-  const Name = () => result.getByTestId('name');
-  const PopularBadge = () => result.queryByTestId('popular');
-  const Description = () => result.queryByTestId('description');
-  const Prices = () => result.getByTestId('prices');
-  const PricesItem = () => result.queryAllByTestId('pricesItem');
-  const Tags = () => result.queryByTestId('tags');
-  const TagsItem = () => result.queryAllByTestId('tagsItem');
-  const Image = () => result.queryByTestId('image');
+  const Item = () => result.getByTestId(TEST_ID.MENU.ITEM);
+  const Name = () => result.getByTestId(TEST_ID.MENU.NAME);
+  const PopularBadge = () => result.queryByTestId(TEST_ID.MENU.POPULAR);
+  const Description = () => result.queryByTestId(TEST_ID.MENU.DESCRIPTION);
+  const Prices = () => result.getByTestId(TEST_ID.MENU.PRICES);
+  const PricesItem = () => result.queryAllByTestId(TEST_ID.MENU.PRICES_ITEM);
+  const Tags = () => result.queryByTestId(TEST_ID.MENU.TAGS);
+  const TagsItem = () => result.queryAllByTestId(TEST_ID.MENU.TAGS_ITEM);
+  const Image = () => result.queryByTestId(TEST_ID.MENU.IMAGE);
 
   return {
     DATA,

@@ -1,22 +1,24 @@
 import { useCallback } from 'react';
-import { MenuList, MenuItem } from '../../types/Model';
+import { TEST_ID } from '../../constant/TEST_ID';
+import { Menus, MenuItem } from '../../types/Model';
 import { CustomList } from '../List';
 import { CustomHeading } from '../Heading';
 import { CustomMenu } from '../Menu';
+import { CustomButton } from '../Button';
 import S from './style.module.css';
 
-type Props = MenuList;
+type Props = Menus;
 
 const MenuList = ({ title, menus }: Props) => {
   const renderItem = useCallback(
-    ({ item }: { item: MenuItem }) => <CustomMenu data-testid="item" menu={item} />,
+    ({ item }: { item: MenuItem }) => <CustomMenu data-testid={TEST_ID.MENU_LIST.ITEM} menu={item} />,
     [],
   );
   const keyExtractor = useCallback((item: MenuItem) => item.name, []);
 
   return (
     <>
-      <CustomHeading headingLevel="h2" className={S.title} data-testid="title">
+      <CustomHeading headingLevel="h2" className={S.title} data-testid={TEST_ID.MENU_LIST.TITLE}>
         {title}
       </CustomHeading>
 
@@ -25,8 +27,14 @@ const MenuList = ({ title, menus }: Props) => {
         data={menus}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        data-testid="list"
+        data-testid={TEST_ID.MENU_LIST.LIST}
       />
+
+      <CustomButton variant="first" size="large" flexible>
+        <span data-testid={TEST_ID.MENU_LIST.BUTTON_COUNT}>1</span>
+        <span data-testid={TEST_ID.MENU_LIST.BUTTON_TEXT}>주문하기</span>
+        <span data-testid={TEST_ID.MENU_LIST.BUTTON_AMOUNT}>3,100원</span>
+      </CustomButton>
     </>
   );
 };

@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Radios, { Props } from './Radios';
+import { TEST_ID } from '../../constant/TEST_ID';
+import { Props } from './Radios';
+import { CustomRadios } from './index';
 
 function renderRadio(props?: Partial<Props>) {
   const DATA = [
@@ -10,10 +12,10 @@ function renderRadio(props?: Partial<Props>) {
   ];
 
   const mockOnClick = jest.fn();
-  const result = render(<Radios name="list" onChange={mockOnClick} data={DATA} {...props} />);
+  const result = render(<CustomRadios name="list" onChange={mockOnClick} data={DATA} {...props} />);
 
-  const RadioGroup = () => result.getByTestId('radioGroup');
-  const RadioItems = () => result.queryAllByTestId('radioItem');
+  const RadioGroup = () => result.getByTestId(TEST_ID.RADIOS.RADIO_GROUP);
+  const RadioItems = () => result.queryAllByTestId(TEST_ID.RADIOS.RADIO_ITEM);
   const Radio = (index: number) => RadioItems()[index].children[0];
 
   async function clickRadio(index: number) {

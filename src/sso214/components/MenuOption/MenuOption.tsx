@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import { TEST_ID } from '../../constant/TEST_ID';
 import { MenuItem } from '../../types/Model';
 import { CustomHeading } from '../Heading';
 import { CustomNumberAdjuster } from '../NumberAdjuster';
@@ -35,19 +36,19 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
   });
 
   return (
-    <form data-testid="form" onSubmit={() => handleSubmit(state)}>
-      {image && <img src={image} alt={name} data-testid="image" />}
+    <form data-testid={TEST_ID.MENU_OPTION.FORM} onSubmit={() => handleSubmit(state)}>
+      {image && <img src={image} alt={name} data-testid={TEST_ID.MENU.IMAGE} />}
 
       <div>
-        <CustomHeading headingLevel="h3" data-testid="name">
-          {isPopular && <span data-testid="popular">인기</span>}
+        <CustomHeading headingLevel="h3" data-testid={TEST_ID.MENU.NAME}>
+          {isPopular && <span data-testid={TEST_ID.MENU.POPULAR}>인기</span>}
           {name}
         </CustomHeading>
 
-        {description && <p data-testid="description">{description}</p>}
+        {description && <p data-testid={TEST_ID.MENU.DESCRIPTION}>{description}</p>}
 
         {!isMultiOption && (
-          <div data-testid="price">
+          <div data-testid={TEST_ID.MENU.PRICE}>
             <CustomHeading headingLevel="h4">가격</CustomHeading>
             <CustomHeading headingLevel="h4">${options[0].price}원</CustomHeading>
           </div>
@@ -86,7 +87,7 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
       </ol>
 
       <div>
-        <button type="submit" data-testid="submitButton">
+        <button type="submit" data-testid={TEST_ID.MENU_OPTION.SUBMIT_BUTTON}>
           {state.amount}원 담기
         </button>
       </div>

@@ -1,14 +1,15 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NumberAdjuster from './NumberAdjuster';
+import { TEST_ID } from '../../constant/TEST_ID';
+import { CustomNumberAdjuster } from './index';
 
 function renderNumberAdjuster() {
   const mockOnClick = jest.fn();
-  const result = render(<NumberAdjuster onChange={mockOnClick} />);
+  const result = render(<CustomNumberAdjuster onChange={mockOnClick} />);
 
-  const DecreaseButton = () => result.getByTestId('decreaseButton');
-  const IncreaseButton = () => result.getByTestId('increaseButton');
-  const Value = () => result.getByTestId('value');
+  const DecreaseButton = () => result.getByTestId(TEST_ID.NUMBER_ADJUSTER.DECREASE_BUTTON);
+  const IncreaseButton = () => result.getByTestId(TEST_ID.NUMBER_ADJUSTER.INCREASE_BUTTON);
+  const Value = () => result.getByTestId(TEST_ID.NUMBER_ADJUSTER.VALUE);
 
   async function clickDecreaseButton() {
     await userEvent.click(DecreaseButton());

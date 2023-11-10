@@ -1,10 +1,11 @@
-import { CustomHeading } from '../../components';
+import { Outlet } from 'react-router-dom';
+import { StoreProvider } from '../../context/StoreContext';
 
 const Store = () => {
   return (
-    <div>
-      <CustomHeading headingLevel="h1">STORE</CustomHeading>
-    </div>
+    <StoreProvider>
+      <Outlet />
+    </StoreProvider>
   );
 };
 

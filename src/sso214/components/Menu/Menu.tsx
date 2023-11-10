@@ -1,9 +1,10 @@
+import React from 'react';
 import { TEST_ID } from '../../constant/TEST_ID';
 import { MenuItem } from '../../types/Model';
 import { CustomHeading } from '../Heading';
 import S from './style.module.css';
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLLIElement> {
   menu: MenuItem;
 }
 

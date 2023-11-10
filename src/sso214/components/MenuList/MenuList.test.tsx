@@ -4,11 +4,12 @@ import snack_menu from '../../mock/snack_menu.json';
 import { CustomMenuList } from './index';
 
 function renderMenuList() {
-  const { menus, ...res } = snack_menu;
-  const DATA = menus;
-  const TITLE = '따끈한 삼첩분식 신상';
+  const DATA = snack_menu.menus;
+  const TITLE = snack_menu.title;
 
-  const result = render(<CustomMenuList menus={DATA} {...res} />);
+  const mockOnClick = jest.fn();
+
+  const result = render(<CustomMenuList data={snack_menu} handleClickMenu={mockOnClick} />);
 
   const Title = () => result.getByTestId(TEST_ID.MENU_LIST.TITLE);
   const List = () => result.queryByTestId(TEST_ID.MENU_LIST.LIST);
@@ -17,6 +18,8 @@ function renderMenuList() {
   return {
     DATA,
     TITLE,
+
+    mockOnClick,
 
     Title,
     List,

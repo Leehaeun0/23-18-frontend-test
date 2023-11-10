@@ -7,12 +7,19 @@ import { CustomMenu } from '../Menu';
 import { CustomButton } from '../Button';
 import S from './style.module.css';
 
-type Props = Menus;
+interface Props {
+  data: Menus;
+  handleClickMenu: (menuId: MenuItem['id']) => void;
+}
 
-const MenuList = ({ title, menus }: Props) => {
+const MenuList = ({ data, handleClickMenu }: Props) => {
+  const { title, menus } = data;
+
   const renderItem = useCallback(
-    ({ item }: { item: MenuItem }) => <CustomMenu data-testid={TEST_ID.MENU_LIST.ITEM} menu={item} />,
-    [],
+    ({ item }: { item: MenuItem }) => (
+      <CustomMenu data-testid={TEST_ID.MENU_LIST.ITEM} menu={item} onClick={() => handleClickMenu(item.id)} />
+    ),
+    [handleClickMenu],
   );
   const keyExtractor = useCallback((item: MenuItem) => item.name, []);
 
@@ -31,9 +38,9 @@ const MenuList = ({ title, menus }: Props) => {
       />
 
       <CustomButton variant="first" size="large" flexible>
-        <span data-testid={TEST_ID.MENU_LIST.BUTTON_COUNT}>1</span>
+        <span data-testid={TEST_ID.MENU_LIST.BUTTON_COUNT}>?</span>
         <span data-testid={TEST_ID.MENU_LIST.BUTTON_TEXT}>주문하기</span>
-        <span data-testid={TEST_ID.MENU_LIST.BUTTON_AMOUNT}>3,100원</span>
+        <span data-testid={TEST_ID.MENU_LIST.BUTTON_AMOUNT}>?원</span>
       </CustomButton>
     </>
   );

@@ -4,6 +4,7 @@ export interface MenuItemOption {
 }
 
 export interface MenuItem {
+  id: number;
   name: string;
   options: MenuItemOption[];
   image?: string;

@@ -1,11 +1,11 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MENU_LIST } from '../../data/MENU_LIST';
-import { MenuInfo } from '../Menu/types';
+import snack_menu from '../../mock/snack_menu.json';
+import { MenuItem } from '../../types/Model';
 import MenuOption from './MenuOption';
 
-function renderMenuOption(props?: Partial<MenuInfo>) {
-  const DATA = MENU_LIST[0] as Required<MenuInfo>;
+function renderMenuOption(props?: Partial<MenuItem>) {
+  const DATA = snack_menu.menus[0] as Required<MenuItem>;
 
   const mockOnClick = jest.fn();
 

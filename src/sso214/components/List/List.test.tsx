@@ -1,20 +1,24 @@
 import { render } from '@testing-library/react';
-import { MENU_LIST } from '../../data/MENU_LIST';
-import { MenuInfo } from '../Menu/types';
+import { MenuItem } from '../../types/Model';
+import snack_menu from '../../mock/snack_menu.json';
 import List, { Props, CONTAINER_TAGS } from './List';
 
-function renderList(props?: Partial<Props<MenuInfo>>) {
-  const DATA: Props<MenuInfo> = {
-    data: MENU_LIST,
-    renderItem: () => <li data-testid="item" />,
-    keyExtractor: (item) => item.name,
-    containerTag: 'ol',
-  } as const;
+function renderList(props?: Partial<Props<MenuItem>>) {
+  const DATA = snack_menu.menus;
 
-  const result = render(<List {...DATA} {...props} />);
+  const result = render(
+    <List<MenuItem>
+      data={DATA}
+      renderItem={() => <li data-testid="item" />}
+      keyExtractor={(item) => item.name}
+      containerTag="ol"
+      {...props}
+    />,
+  );
 
   const ListWrap = () => result.getByTestId('list');
   const ListItems = () => result.queryAllByTestId('item');
+
   return {
     DATA,
     ListWrap,
@@ -32,6 +36,6 @@ describe('<List />', () => {
   it('주어진 데이터들을 올바르게 렌더링한다.', () => {
     const { ListItems, DATA } = renderList();
 
-    expect(ListItems().length).toBe(DATA.data.length);
+    expect(ListItems().length).toBe(DATA.length);
   });
 });

@@ -1,29 +1,26 @@
 import { useCallback } from 'react';
-import { List } from '../List';
-import { Heading } from '../Heading';
-import { Menu } from '../Menu';
-import { MenuInfo } from '../Menu/types';
+import { MenuList, MenuItem } from '../../types/Model';
+import { CustomList } from '../List';
+import { CustomHeading } from '../Heading';
+import { CustomMenu } from '../Menu';
 import S from './style.module.css';
 
-interface Props {
-  title: string;
-  menus: MenuInfo[];
-}
+type Props = MenuList;
 
 const MenuList = ({ title, menus }: Props) => {
   const renderItem = useCallback(
-    ({ item }: { item: MenuInfo }) => <Menu data-testid="item" menu={item} />,
+    ({ item }: { item: MenuItem }) => <CustomMenu data-testid="item" menu={item} />,
     [],
   );
-  const keyExtractor = useCallback((item: MenuInfo) => item.name, []);
+  const keyExtractor = useCallback((item: MenuItem) => item.name, []);
 
   return (
     <>
-      <Heading headingLevel="h2" className={S.title} data-testid="title">
+      <CustomHeading headingLevel="h2" className={S.title} data-testid="title">
         {title}
-      </Heading>
+      </CustomHeading>
 
-      <List<MenuInfo>
+      <CustomList<MenuItem>
         containerTag="ul"
         data={menus}
         renderItem={renderItem}

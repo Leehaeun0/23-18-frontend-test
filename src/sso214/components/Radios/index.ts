@@ -1,1 +1,1 @@
-export { default as Radios } from 'Radios';
+export { default as CustomRadios } from 'Radios';

@@ -1,9 +1,9 @@
-import { Heading } from '../Heading';
-import { MenuInfo } from './types';
+import { MenuItem } from '../../types/Model';
+import { CustomHeading } from '../Heading';
 import S from './style.module.css';
 
 interface Props {
-  menu: MenuInfo;
+  menu: MenuItem;
 }
 
 const Menu = ({ menu }: Props) => {
@@ -12,14 +12,14 @@ const Menu = ({ menu }: Props) => {
   return (
     <li className={S.container} data-testid="item">
       <div className={S.info}>
-        <Heading headingLevel="h3" data-testid="name">
+        <CustomHeading headingLevel="h3" data-testid="name">
           {name}
           {isPopular && (
             <span className={`${S.badge} ${S.popularBadge}`} data-testid="popular">
               인기
             </span>
           )}
-        </Heading>
+        </CustomHeading>
 
         {description && (
           <p className={S.description} data-testid="description">

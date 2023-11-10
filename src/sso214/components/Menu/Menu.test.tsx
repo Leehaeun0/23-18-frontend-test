@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
-import { MENU_LIST } from '../../data/MENU_LIST';
+import { MenuItem } from '../../types/Model';
+import snack_menu from '../../mock/snack_menu.json';
 import Menu from './Menu';
-import { MenuInfo } from './types';
 
-function renderMenu(props?: Partial<MenuInfo>) {
-  const DATA = MENU_LIST[0] as Required<MenuInfo>;
+function renderMenu(props?: Partial<MenuItem>) {
+  const DATA = snack_menu.menus[0] as Required<MenuItem>;
 
   const result = render(<Menu menu={{ ...DATA, ...props }} />);
 

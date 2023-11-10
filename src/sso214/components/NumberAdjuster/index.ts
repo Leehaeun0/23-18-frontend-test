@@ -1,1 +1,1 @@
-export { default as NumberAdjuster } from './NumberAdjuster';
+export { default as CustomNumberAdjuster } from './NumberAdjuster';

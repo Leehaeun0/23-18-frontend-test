@@ -1,8 +1,8 @@
 import { useReducer } from 'react';
-import { MenuInfo } from '../Menu/types';
-import Heading from '../Heading/Heading';
-import NumberAdjuster from '../NumberAdjuster/NumberAdjuster';
-import Radios from '../Radios/Radios';
+import { MenuItem } from '../../types/Model';
+import { CustomHeading } from '../Heading';
+import { CustomNumberAdjuster } from '../NumberAdjuster';
+import { CustomRadios } from '../Radios';
 
 interface FormValue {
   price: number;
@@ -11,7 +11,7 @@ interface FormValue {
 }
 
 interface Props {
-  menu: MenuInfo;
+  menu: MenuItem;
   handleSubmit: (value: FormValue) => void;
 }
 
@@ -39,17 +39,17 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
       {image && <img src={image} alt={name} data-testid="image" />}
 
       <div>
-        <Heading headingLevel="h3" data-testid="name">
+        <CustomHeading headingLevel="h3" data-testid="name">
           {isPopular && <span data-testid="popular">인기</span>}
           {name}
-        </Heading>
+        </CustomHeading>
 
         {description && <p data-testid="description">{description}</p>}
 
         {!isMultiOption && (
           <div data-testid="price">
-            <Heading headingLevel="h4">가격</Heading>
-            <Heading headingLevel="h4">${options[0].price}원</Heading>
+            <CustomHeading headingLevel="h4">가격</CustomHeading>
+            <CustomHeading headingLevel="h4">${options[0].price}원</CustomHeading>
           </div>
         )}
       </div>
@@ -58,11 +58,11 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
         {isMultiOption && (
           <li>
             <div>
-              <Heading headingLevel="h4">가격</Heading>
+              <CustomHeading headingLevel="h4">가격</CustomHeading>
               <span>필수</span>
             </div>
 
-            <Radios
+            <CustomRadios
               name="prices"
               onChange={(value) => dispatch({ name: 'price', value: +value })}
               data={options?.map(({ name, price }) => ({
@@ -81,7 +81,7 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
 
         <li>
           <p>수량</p>
-          <NumberAdjuster onChange={(value) => dispatch({ name: 'quantity', value })} />
+          <CustomNumberAdjuster onChange={(value) => dispatch({ name: 'quantity', value })} />
         </li>
       </ol>
 

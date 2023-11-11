@@ -11,3 +11,10 @@ export const formatKrPrice = (price: string | number) => {
   }
   return new Intl.NumberFormat('ko', { currency: 'KRW' }).format(priceNum);
 };
+
+export const getArrSum = (numArr: number[]) => {
+  return numArr.reduce((acc, cur) => {
+    acc += cur;
+    return acc;
+  }, 0);
+};

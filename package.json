@@ -29,7 +29,8 @@
   "homepage": "https://github.com/Learning-Is-Vital-In-Development/23-18-frontend-test#readme",
   "engines": {
     "node": "^18.18.0",
-    "npm": "^9.8.1"
+    "npm": "^9.8.1",
+    "yarn": "please-use-npm"
   },
   "dependencies": {
     "@babel/core": "^7.23.0",

@@ -1,10 +1,11 @@
-export interface MenuList {
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+export type MenuList = {
   id: string;
   title: string;
   menus: Menu[];
-}
+};
 
-export interface Menu {
+export type Menu = {
   id: string;
   name: string;
   options: {
@@ -15,7 +16,7 @@ export interface Menu {
   image?: string;
   isPopular: boolean;
   tags: string[];
-}
+};
 
 export const getStoreMenu: () => MenuList[] = () => [
   {

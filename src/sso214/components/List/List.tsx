@@ -4,7 +4,7 @@ import { TEST_ID } from '../../constant/TEST_ID';
 export const CONTAINER_TAGS = ['ul', 'ol', 'div'];
 type ContainerTag = (typeof CONTAINER_TAGS)[number];
 
-export interface Props<T> {
+export interface Props<T> extends React.HTMLAttributes<HTMLDivElement> {
   data: T[];
   renderItem: ({ item: T }) => React.ReactNode;
   keyExtractor: (item: T) => string | number;
@@ -16,6 +16,7 @@ const List = <T extends Record<string, { idx: string }>>({
   renderItem,
   keyExtractor,
   containerTag,
+  ...res
 }: Props<T>) => {
   const Container = ({
     children,
@@ -24,7 +25,7 @@ const List = <T extends Record<string, { idx: string }>>({
     React.createElement(containerTag, props, children);
 
   return (
-    <Container data-testid={TEST_ID.LIST.LIST}>
+    <Container data-testid={TEST_ID.LIST.LIST} {...res}>
       {data.map((item) => {
         const key = keyExtractor(item);
         const contents = renderItem({ item });

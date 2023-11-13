@@ -3,11 +3,12 @@ import { TEST_ID } from '../../constant/TEST_ID';
 import S from './styles.module.css';
 
 interface Props {
+  initValue?: number;
   onChange: (value: number) => void;
 }
 
-const NumberAdjuster = ({ onChange }: Props) => {
-  const [value, setValue] = useState(1);
+const NumberAdjuster = ({ onChange, initValue }: Props) => {
+  const [value, setValue] = useState(initValue | 1);
   const isMinimum = value === 1;
 
   useEffect(() => {

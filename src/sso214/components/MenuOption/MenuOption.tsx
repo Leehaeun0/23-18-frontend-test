@@ -37,18 +37,18 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
 
   return (
     <form data-testid={TEST_ID.MENU_OPTION.FORM} onSubmit={() => handleSubmit(state)}>
-      {image && <img src={image} alt={name} data-testid={TEST_ID.MENU.IMAGE} />}
+      {image && <img src={image} alt={name} data-testid={TEST_ID.MENU_OPTION.IMAGE} />}
 
       <div>
-        <CustomHeading headingLevel="h3" data-testid={TEST_ID.MENU.NAME}>
-          {isPopular && <span data-testid={TEST_ID.MENU.POPULAR}>인기</span>}
+        <CustomHeading headingLevel="h3" data-testid={TEST_ID.MENU_OPTION.NAME}>
+          {isPopular && <span data-testid={TEST_ID.MENU_OPTION.POPULAR}>인기</span>}
           {name}
         </CustomHeading>
 
-        {description && <p data-testid={TEST_ID.MENU.DESCRIPTION}>{description}</p>}
+        {description && <p data-testid={TEST_ID.MENU_OPTION.DESCRIPTION}>{description}</p>}
 
         {!isMultiOption && (
-          <div data-testid={TEST_ID.MENU.PRICE}>
+          <div data-testid={TEST_ID.MENU_OPTION.PRICE}>
             <CustomHeading headingLevel="h4">가격</CustomHeading>
             <CustomHeading headingLevel="h4">${options[0].price}원</CustomHeading>
           </div>

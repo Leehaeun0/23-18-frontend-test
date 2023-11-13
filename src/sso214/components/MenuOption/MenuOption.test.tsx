@@ -13,11 +13,11 @@ function renderMenuOption(props?: Partial<MenuItem>) {
   const result = render(<CustomMenuOption menu={{ ...DATA, ...props }} handleSubmit={mockOnClick} />);
 
   const Form = () => result.getByTestId(TEST_ID.MENU_OPTION.FORM);
-  const Image = () => result.queryByTestId(TEST_ID.MENU.IMAGE);
-  const Name = () => result.getByTestId(TEST_ID.MENU.NAME);
-  const PopularBadge = () => result.queryByTestId(TEST_ID.MENU.POPULAR);
-  const Description = () => result.queryByTestId(TEST_ID.MENU.DESCRIPTION);
-  const Price = () => result.queryByTestId(TEST_ID.MENU.PRICE);
+  const Image = () => result.queryByTestId(TEST_ID.MENU_OPTION.IMAGE);
+  const Name = () => result.getByTestId(TEST_ID.MENU_OPTION.NAME);
+  const PopularBadge = () => result.queryByTestId(TEST_ID.MENU_OPTION.POPULAR);
+  const Description = () => result.queryByTestId(TEST_ID.MENU_OPTION.DESCRIPTION);
+  const Price = () => result.queryByTestId(TEST_ID.MENU_OPTION.PRICE);
   const Prices = () => result.queryByTestId(TEST_ID.RADIOS.RADIO_GROUP);
   const PricesItems = () => result.queryAllByTestId(TEST_ID.RADIOS.RADIO_ITEM);
   const PricesItemsRadio = (index: number) => PricesItems()[index].children[0];

@@ -17,7 +17,7 @@ const MenuList = ({ data, handleClickMenu }: Props) => {
 
   const renderItem = useCallback(
     ({ item }: { item: MenuItem }) => (
-      <CustomMenu data-testid={TEST_ID.MENU_LIST.ITEM} menu={item} onClick={() => handleClickMenu(item.id)} />
+      <CustomMenu menu={item} data-testid={TEST_ID.MENU_LIST.ITEM} onClick={() => handleClickMenu(item.id)} />
     ),
     [handleClickMenu],
   );
@@ -32,15 +32,15 @@ const MenuList = ({ data, handleClickMenu }: Props) => {
       <CustomList<MenuItem>
         containerTag="ul"
         data={menus}
+        data-testid={TEST_ID.MENU_LIST.LIST}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        data-testid={TEST_ID.MENU_LIST.LIST}
       />
 
       <CustomButton variant="first" size="large" flexible>
-        <span data-testid={TEST_ID.MENU_LIST.BUTTON_COUNT}>?</span>
+        <span data-testid={TEST_ID.MENU_LIST.BUTTON_COUNT}>0</span>
         <span data-testid={TEST_ID.MENU_LIST.BUTTON_TEXT}>주문하기</span>
-        <span data-testid={TEST_ID.MENU_LIST.BUTTON_AMOUNT}>?원</span>
+        <span data-testid={TEST_ID.MENU_LIST.BUTTON_AMOUNT}>0원</span>
       </CustomButton>
     </>
   );

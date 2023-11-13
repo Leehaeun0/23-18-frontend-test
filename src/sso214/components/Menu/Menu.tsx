@@ -8,11 +8,11 @@ interface Props extends React.HTMLAttributes<HTMLLIElement> {
   menu: MenuItem;
 }
 
-const Menu = ({ menu }: Props) => {
+const Menu = ({ menu, ...res }: Props) => {
   const { name, options, image, description, isPopular, tags } = menu;
 
   return (
-    <li className={S.container} data-testid={TEST_ID.MENU.ITEM}>
+    <li className={S.container} data-testid={TEST_ID.MENU.ITEM} {...res}>
       <div className={S.info}>
         <CustomHeading headingLevel="h3" data-testid={TEST_ID.MENU.NAME}>
           {name}

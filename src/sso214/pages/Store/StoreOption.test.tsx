@@ -1,11 +1,14 @@
-import { render } from '@testing-library/react';
 import { renderWithRouter } from '../../utils';
-import { StoreOption } from './index';
 
-function renderStoreOption() {
-  const result = render(renderWithRouter(<StoreOption />));
+function renderStoreOption(storeId?: number, menuId?: number) {
+  const STORE_ID = storeId | 1;
+  const MENU_ID = menuId | 1;
+
+  const result = renderWithRouter([`/store/${STORE_ID}/menu/${menuId}`]);
 
   return {
+    STORE_ID,
+    MENU_ID,
     result,
   };
 }
@@ -24,6 +27,7 @@ describe('/store/:storeId/menu/:menuId', () => {
   });
 
   it('브라우저의 뒤로가기 버튼 클릭 시, 장바구니에는 변동이 없고 /store/:storeId 경로로 이동한다.', () => {
+    window.history.back();
     //
   });
 });

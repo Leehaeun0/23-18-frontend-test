@@ -1,7 +1,17 @@
-// import { CustomMenuOption } from '../../components';
+import { useNavigate, useParams } from 'react-router';
+import { CustomMenuOption } from '../../components';
+import { useCart } from '../../hooks/useCart';
+import { getStoreMenu } from '../../utils';
 
 const StoreOption = () => {
-  return <div>{/*<CustomMenuOption menu={} handleSubmit={} />*/}</div>;
+  const { storeId, menuId } = useParams();
+  const { addToCart } = useCart();
+
+  const navigate = useNavigate();
+
+  const MENU = getStoreMenu(+storeId, +menuId);
+
+  return <CustomMenuOption menu={MENU} handleSubmit={addToCart} />;
 };
 
 export default StoreOption;

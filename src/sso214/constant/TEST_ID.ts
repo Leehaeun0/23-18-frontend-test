@@ -21,9 +21,9 @@ export const TEST_ID = {
     TITLE: 'menu-list-title',
     LIST: 'menu-list-list',
     ITEM: 'menu-list-item',
-    BUTTON_COUNT: 'menu-list-count',
-    BUTTON_TEXT: 'menu-list-buttonText',
-    BUTTON_AMOUNT: 'menu-list-buttonAmount',
+    ORDER_BUTTON: 'menu-list-order-button',
+    ORDER_BUTTON_COUNT: 'menu-list-order-button-count',
+    ORDER_BUTTON_AMOUNT: 'menu-list-order-button-amount',
   },
   MENU_OPTION: {
     FORM: 'menu-option-form',

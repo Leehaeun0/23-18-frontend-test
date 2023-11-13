@@ -19,10 +19,5 @@ export interface Menus {
   menus: MenuItem[];
 }
 
-export interface Option {
-  count: number;
-}
-
-export interface CartItem extends MenuItemOption {
-  count: number;
-}
+export type CartItemOption = MenuItemOption & { count: number };
+export type CartItem = MenuItem & { option: CartItemOption };

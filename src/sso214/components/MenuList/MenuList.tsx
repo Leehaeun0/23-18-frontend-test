@@ -1,25 +1,34 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { TEST_ID } from '../../constant/TEST_ID';
-import { Menus, MenuItem } from '../../types/Model';
+import { Menus, MenuItem, CartItem } from '../../types/Model';
 import { CustomList } from '../List';
 import { CustomHeading } from '../Heading';
 import { CustomMenu } from '../Menu';
 import { CustomButton } from '../Button';
+import { sumCartListTotalAmount } from '../../utils';
 import S from './style.module.css';
 
 interface Props {
-  data: Menus;
-  handleClickMenu: (menuId: MenuItem['id']) => void;
+  storeMenus: Menus;
+  cartList: CartItem[];
+  handleClickItem: (menuId: MenuItem['id']) => void;
 }
 
-const MenuList = ({ data, handleClickMenu }: Props) => {
-  const { title, menus } = data;
+const MenuList = ({ storeMenus, handleClickItem, cartList }: Props) => {
+  const { title, menus } = storeMenus;
+
+  const [itemCount, totalAmount] = useMemo(() => {
+    const count = cartList.length;
+    const amount = sumCartListTotalAmount(cartList);
+
+    return [count, amount];
+  }, [cartList]);
 
   const renderItem = useCallback(
     ({ item }: { item: MenuItem }) => (
-      <CustomMenu menu={item} data-testid={TEST_ID.MENU_LIST.ITEM} onClick={() => handleClickMenu(item.id)} />
+      <CustomMenu menu={item} data-testid={TEST_ID.MENU_LIST.ITEM} onClick={() => handleClickItem(item.id)} />
     ),
-    [handleClickMenu],
+    [handleClickItem],
   );
   const keyExtractor = useCallback((item: MenuItem) => item.name, []);
 
@@ -37,11 +46,13 @@ const MenuList = ({ data, handleClickMenu }: Props) => {
         keyExtractor={keyExtractor}
       />
 
-      <CustomButton variant="first" size="large" flexible>
-        <span data-testid={TEST_ID.MENU_LIST.BUTTON_COUNT}>0</span>
-        <span data-testid={TEST_ID.MENU_LIST.BUTTON_TEXT}>주문하기</span>
-        <span data-testid={TEST_ID.MENU_LIST.BUTTON_AMOUNT}>0원</span>
-      </CustomButton>
+      {cartList.length > 0 && (
+        <CustomButton variant="first" size="large" flexible data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON}>
+          <span data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON_COUNT}>{itemCount}</span>
+          <span>주문하기</span>
+          <span data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON_AMOUNT}>{totalAmount}원</span>
+        </CustomButton>
+      )}
     </>
   );
 };

@@ -1,19 +1,24 @@
-import { useNavigate, useParams } from 'react-router';
-import { CustomMenuList } from '../../components';
-import cafe_menu from '../../mock/cafe_menu.json';
 import { useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router';
+import { CustomMenuList, CustomNoMatch } from '../../components';
 import { MenuItem } from '../../types/Model';
+import { useCart } from '../../hooks/useCart';
+import { getStoreMenus } from '../../utils';
 
 const StoreDetail = () => {
-  const navigate = useNavigate();
   const { storeId } = useParams();
+  const { cartList } = useCart();
+  const navigate = useNavigate();
+
+  const MENUS = getStoreMenus(+storeId);
 
   const handleClickMenu = useCallback(
     (menuId: MenuItem['id']) => navigate(`/store/${storeId}/menu/${menuId}`),
     [storeId, navigate],
   );
 
-  return <CustomMenuList {...cafe_menu} handleClickMenu={handleClickMenu} />;
+  if (!MENUS) return <CustomNoMatch />;
+  return <CustomMenuList storeMenus={MENUS} handleClickItem={handleClickMenu} cartList={cartList} />;
 };
 
 export default StoreDetail;

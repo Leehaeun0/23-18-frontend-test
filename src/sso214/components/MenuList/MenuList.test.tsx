@@ -9,7 +9,9 @@ function renderMenuList() {
 
   const mockOnClick = jest.fn();
 
-  const result = render(<CustomMenuList data={snack_menu} handleClickMenu={mockOnClick} />);
+  const result = render(
+    <CustomMenuList storeMenus={snack_menu} handleClickItem={mockOnClick} cartList={[]} />,
+  );
 
   const Title = () => result.getByTestId(TEST_ID.MENU_LIST.TITLE);
   const List = () => result.queryByTestId(TEST_ID.MENU_LIST.LIST);

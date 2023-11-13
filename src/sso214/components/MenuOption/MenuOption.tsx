@@ -1,27 +1,24 @@
 import { useReducer } from 'react';
 import { TEST_ID } from '../../constant/TEST_ID';
-import { MenuItem } from '../../types/Model';
+import { CartItem, CartItemOption, MenuItem } from '../../types/Model';
 import { CustomHeading } from '../Heading';
 import { CustomNumberAdjuster } from '../NumberAdjuster';
 import { CustomRadios } from '../Radios';
 
-interface FormValue {
-  price: number;
-  quantity: number;
-  amount: number;
-}
-
 interface Props {
   menu: MenuItem;
-  handleSubmit: (value: FormValue) => void;
+  handleSubmit: (item: CartItem) => void;
 }
 
 const MenuOption = ({ menu, handleSubmit }: Props) => {
   const { name, options, image, description, isPopular } = menu;
   const isMultiOption = options.length > 1;
 
-  function reducer(state: FormValue, action: { name: keyof FormValue; value: FormValue[keyof FormValue] }) {
-    const multiplyTarget = action.name === 'price' ? state.quantity : state.price;
+  function reducer(
+    state: CartItemOption,
+    action: { name: keyof CartItemOption; value: CartItemOption[keyof CartItemOption] },
+  ) {
+    const multiplyTarget = action.name === 'price' ? state.count : state.price;
     return {
       ...state,
       [action.name]: action.value,
@@ -31,12 +28,16 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
 
   const [state, dispatch] = useReducer(reducer, {
     price: options[0].price || 0,
-    quantity: 1,
-    amount: options[0].price || 0,
+    count: 1,
+    // amount: options[0].price || 0,
   });
 
+  const submitEvt = (value: CartItemOption) => {
+    handleSubmit({ ...menu, option: value });
+  };
+
   return (
-    <form data-testid={TEST_ID.MENU_OPTION.FORM} onSubmit={() => handleSubmit(state)}>
+    <form data-testid={TEST_ID.MENU_OPTION.FORM} onSubmit={() => submitEvt(state)}>
       {image && <img src={image} alt={name} data-testid={TEST_ID.MENU_OPTION.IMAGE} />}
 
       <div>
@@ -82,7 +83,7 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
 
         <li>
           <p>수량</p>
-          <CustomNumberAdjuster onChange={(value) => dispatch({ name: 'quantity', value })} />
+          <CustomNumberAdjuster onChange={(value) => dispatch({ name: 'count', value })} />
         </li>
       </ol>
 

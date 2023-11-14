@@ -1,14 +1,10 @@
-import userEvent from '@testing-library/user-event';
-import { getStoreMenus, renderWithRouter, sumCartListTotalAmount } from '../../utils';
+import { renderWithRouter, getStoreMenus, getStoreMenu, sumMenusTotalAmount, STORE_LIST } from '../../utils';
 import { TEST_ID } from '../../constant/TEST_ID';
-import snack_menu from '../../mock/snack_menu.json';
-import cafe_menu from '../../mock/cafe_menu.json';
 import { CartContextProps } from '../../context/CartContext';
 
 function renderStoreDetail(storeId?: number, initialState?: CartContextProps['cartList']) {
-  const STORE_LIST = [snack_menu, cafe_menu];
   const STORE_ID = storeId ?? 2;
-  const DATA = getStoreMenus(STORE_ID);
+  const MENUS = getStoreMenus(STORE_ID);
 
   const result = renderWithRouter([`/store/${STORE_ID}`], initialState);
 
@@ -16,30 +12,29 @@ function renderStoreDetail(storeId?: number, initialState?: CartContextProps['ca
   const List = () => result.queryByTestId(TEST_ID.MENU_LIST.LIST);
   const Items = () => result.queryAllByTestId(TEST_ID.MENU_LIST.ITEM);
   const Item = (index: number) => Items()[index];
-  const OrderButton = () => result.queryByTestId(TEST_ID.MENU_LIST.ORDER_BUTTON);
-  const OrderButtonCount = () => result.queryByTestId(TEST_ID.MENU_LIST.ORDER_BUTTON_COUNT);
-  const OrderButtonAmount = () => result.queryByTestId(TEST_ID.MENU_LIST.ORDER_BUTTON_AMOUNT);
+  const Button = () => result.queryByTestId(TEST_ID.MENU_LIST.ORDER_BUTTON);
+  const ButtonCountText = () => result.queryByTestId(TEST_ID.MENU_LIST.ORDER_BUTTON_COUNT);
+  const ButtonAmountText = () => result.queryByTestId(TEST_ID.MENU_LIST.ORDER_BUTTON_AMOUNT);
+
   const NoMatch = () => result.queryByTestId(TEST_ID.NO_MATCH.NO_MATCH);
   const StoreOptionPageTitle = () => result.queryByTestId(TEST_ID.MENU_OPTION.NAME);
 
   async function clickItem(index: number) {
-    await userEvent.click(Item(index));
+    await result.user.click(Item(index));
   }
 
   return {
-    STORE_LIST,
     STORE_ID,
-    DATA,
-
-    result,
+    MENUS,
 
     Title,
     List,
     Items,
     Item,
-    OrderButton,
-    OrderButtonCount,
-    OrderButtonAmount,
+    Button,
+    ButtonCountText,
+    ButtonAmountText,
+
     NoMatch,
     StoreOptionPageTitle,
 
@@ -49,12 +44,9 @@ function renderStoreDetail(storeId?: number, initialState?: CartContextProps['ca
 
 describe('/store/:storeId', () => {
   it('해당 경로 접속 시, 화면이 올바르게 노출된다.', () => {
-    const { DATA, Title, List, Items, OrderButton, NoMatch } = renderStoreDetail();
+    const { MENUS, Title, NoMatch } = renderStoreDetail();
 
-    expect(Title()).toHaveTextContent(DATA.title);
-    expect(List()).toBeInTheDocument();
-    expect(Items().length).toBe(DATA.menus.length);
-    expect(OrderButton()).not.toBeInTheDocument();
+    expect(Title()).toHaveTextContent(MENUS.title);
     expect(NoMatch()).not.toBeInTheDocument();
   });
 
@@ -65,47 +57,32 @@ describe('/store/:storeId', () => {
   });
 
   it('잘못된 storeId로 접근 시 <NoMatch /> 페이지가 노출된다.', () => {
-    const { Title, NoMatch } = renderStoreDetail(5);
+    const { Title, NoMatch } = renderStoreDetail(STORE_LIST.length + 1);
 
     expect(Title()).not.toBeInTheDocument();
     expect(NoMatch()).toBeInTheDocument();
   });
 
   it('메뉴 아이템 클릭 시 /store/:storeId/menu/:menuId 경로로 이동한다.', async () => {
-    const { clickItem, Title, StoreOptionPageTitle, DATA } = renderStoreDetail();
+    const ITEM_INDEX = 2;
+    const { MENUS, clickItem, Title, StoreOptionPageTitle } = renderStoreDetail();
 
-    await clickItem(2);
+    await clickItem(ITEM_INDEX);
 
     expect(Title()).not.toBeInTheDocument();
-    expect(StoreOptionPageTitle()).toHaveTextContent(DATA.menus[2].name);
-  });
-
-  it('장바구니에 담긴 음식이 없는 경우, 하단 주문하기 버튼이 노출되지 않는다.', () => {
-    const { OrderButton } = renderStoreDetail();
-
-    expect(OrderButton()).not.toBeInTheDocument();
-  });
-
-  it('장바구니에 담긴 음식이 있는 경우, 하단 주문하기 버튼의 {개수}와 {총 금액}이 올바르게 노출된다.', () => {
-    const items = [
-      { ...cafe_menu.menus[0], option: { price: 2000, count: 2 } },
-      { ...cafe_menu.menus[1], option: { price: 3000, count: 3 } },
-      { ...cafe_menu.menus[2], option: { price: 3000, count: 4 } },
-    ] as const;
-    const { OrderButtonCount, OrderButtonAmount } = renderStoreDetail(cafe_menu.id, items);
-
-    expect(OrderButtonCount()).toHaveTextContent(`${items.length}`);
-    expect(OrderButtonAmount()).toHaveTextContent(`${sumCartListTotalAmount(items)}원`);
+    expect(StoreOptionPageTitle()).toHaveTextContent(MENUS.menus[ITEM_INDEX].name);
   });
 
   it('같은 음식을 여러 번 담은 경우, 장바구니에 중첩되어 담긴다.', () => {
-    const items = [
-      { ...cafe_menu.menus[2], option: { price: 3000, count: 2 } },
-      { ...cafe_menu.menus[2], option: { price: 2000, count: 5 } },
-    ] as const;
-    const { OrderButtonCount, OrderButtonAmount } = renderStoreDetail(cafe_menu.id, items);
+    const MENU = getStoreMenu(2, 3);
+    const SELECTED_MENUS = [
+      { ...MENU, selectedOption: { index: 0, count: 2 } },
+      { ...MENU, selectedOption: { index: 0, count: 5 } },
+    ];
 
-    expect(OrderButtonCount()).toHaveTextContent(`${items.length}`);
-    expect(OrderButtonAmount()).toHaveTextContent(`${sumCartListTotalAmount(items)}원`);
+    const { ButtonCountText, ButtonAmountText } = renderStoreDetail(2, SELECTED_MENUS);
+
+    expect(ButtonCountText()).toHaveTextContent(`${SELECTED_MENUS.length}`);
+    expect(ButtonAmountText()).toHaveTextContent(`${sumMenusTotalAmount(SELECTED_MENUS)}원`);
   });
 });

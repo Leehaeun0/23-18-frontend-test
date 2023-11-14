@@ -1,7 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { CustomHeading } from '../../components';
 
 const Store = () => {
-  return <Outlet />;
+  return (
+    <>
+      <CustomHeading headingLevel="h1">Store</CustomHeading>
+    </>
+  );
 };
 
 export default Store;

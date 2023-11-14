@@ -7,10 +7,9 @@ const BaseRoute = () => {
     <Routes>
       <Route path="/" element={<CustomLayout />}>
         <Route index element={<Home />} />
-        <Route path="store" element={<Store />}>
-          <Route path=":storeId" element={<StoreDetail />} />
-          <Route path=":storeId/menu/:menuId" element={<StoreOption />} />
-        </Route>
+        <Route path="store" element={<Store />} />
+        <Route path="store/:storeId" element={<StoreDetail />} />
+        <Route path="store/:storeId/menu/:menuId" element={<StoreOption />} />
         <Route path="*" element={<CustomNoMatch />} />
       </Route>
     </Routes>

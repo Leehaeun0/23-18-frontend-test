@@ -8,6 +8,7 @@ import { getStoreMenus } from '../../utils';
 const StoreDetail = () => {
   const { storeId } = useParams();
   const { cartList } = useCart();
+
   const navigate = useNavigate();
 
   const MENUS = getStoreMenus(+storeId);
@@ -18,7 +19,7 @@ const StoreDetail = () => {
   );
 
   if (!MENUS) return <CustomNoMatch />;
-  return <CustomMenuList storeMenus={MENUS} handleClickItem={handleClickMenu} cartList={cartList} />;
+  return <CustomMenuList storeMenus={MENUS} selectedMenus={cartList} handleClickItem={handleClickMenu} />;
 };
 
 export default StoreDetail;

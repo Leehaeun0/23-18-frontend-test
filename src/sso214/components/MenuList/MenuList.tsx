@@ -1,36 +1,35 @@
 import { useCallback, useMemo } from 'react';
+import { Menus, MenuItem, SelectedMenuItem } from '../../types/Model';
+import { sumMenusTotalAmount } from '../../utils';
 import { TEST_ID } from '../../constant/TEST_ID';
-import { Menus, MenuItem, CartItem } from '../../types/Model';
 import { CustomList } from '../List';
 import { CustomHeading } from '../Heading';
 import { CustomMenu } from '../Menu';
 import { CustomButton } from '../Button';
-import { sumCartListTotalAmount } from '../../utils';
 import S from './style.module.css';
 
 interface Props {
   storeMenus: Menus;
-  cartList: CartItem[];
+  selectedMenus: SelectedMenuItem[];
   handleClickItem: (menuId: MenuItem['id']) => void;
 }
 
-const MenuList = ({ storeMenus, handleClickItem, cartList }: Props) => {
+const MenuList = ({ storeMenus, selectedMenus, handleClickItem }: Props) => {
   const { title, menus } = storeMenus;
 
   const [itemCount, totalAmount] = useMemo(() => {
-    const count = cartList.length;
-    const amount = sumCartListTotalAmount(cartList);
-
+    const count = selectedMenus.length;
+    const amount = sumMenusTotalAmount(selectedMenus);
     return [count, amount];
-  }, [cartList]);
+  }, [selectedMenus]);
 
+  const keyExtractor = useCallback((item: MenuItem) => item.name, []);
   const renderItem = useCallback(
     ({ item }: { item: MenuItem }) => (
       <CustomMenu menu={item} data-testid={TEST_ID.MENU_LIST.ITEM} onClick={() => handleClickItem(item.id)} />
     ),
     [handleClickItem],
   );
-  const keyExtractor = useCallback((item: MenuItem) => item.name, []);
 
   return (
     <>
@@ -40,13 +39,13 @@ const MenuList = ({ storeMenus, handleClickItem, cartList }: Props) => {
 
       <CustomList<MenuItem>
         containerTag="ul"
-        data={menus}
-        data-testid={TEST_ID.MENU_LIST.LIST}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
+        data={menus}
+        data-testid={TEST_ID.MENU_LIST.LIST}
       />
 
-      {cartList.length > 0 && (
+      {selectedMenus.length > 0 && (
         <CustomButton variant="first" size="large" flexible data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON}>
           <span data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON_COUNT}>{itemCount}</span>
           <span>주문하기</span>

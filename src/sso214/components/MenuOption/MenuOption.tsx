@@ -1,43 +1,29 @@
-import { useReducer } from 'react';
+import { FormEvent, useState } from 'react';
+import { MenuItem, SelectedMenuItem } from '../../types/Model';
 import { TEST_ID } from '../../constant/TEST_ID';
-import { CartItem, CartItemOption, MenuItem } from '../../types/Model';
 import { CustomHeading } from '../Heading';
 import { CustomNumberAdjuster } from '../NumberAdjuster';
 import { CustomRadios } from '../Radios';
 
 interface Props {
   menu: MenuItem;
-  handleSubmit: (item: CartItem) => void;
+  handleSubmit: (item: SelectedMenuItem) => void;
 }
 
 const MenuOption = ({ menu, handleSubmit }: Props) => {
   const { name, options, image, description, isPopular } = menu;
   const isMultiOption = options.length > 1;
 
-  function reducer(
-    state: CartItemOption,
-    action: { name: keyof CartItemOption; value: CartItemOption[keyof CartItemOption] },
-  ) {
-    const multiplyTarget = action.name === 'price' ? state.count : state.price;
-    return {
-      ...state,
-      [action.name]: action.value,
-      amount: multiplyTarget * action.value,
-    };
-  }
+  const [index, setIndex] = useState(0);
+  const [count, setCount] = useState(1);
 
-  const [state, dispatch] = useReducer(reducer, {
-    price: options[0].price || 0,
-    count: 1,
-    // amount: options[0].price || 0,
-  });
-
-  const submitEvt = (value: CartItemOption) => {
-    handleSubmit({ ...menu, option: value });
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    handleSubmit({ ...menu, selectedOption: { index, count } });
   };
 
   return (
-    <form data-testid={TEST_ID.MENU_OPTION.FORM} onSubmit={() => submitEvt(state)}>
+    <form data-testid={TEST_ID.MENU_OPTION.FORM} onSubmit={onSubmit}>
       {image && <img src={image} alt={name} data-testid={TEST_ID.MENU_OPTION.IMAGE} />}
 
       <div>
@@ -66,10 +52,11 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
 
             <CustomRadios
               name="prices"
-              onChange={(value) => dispatch({ name: 'price', value: +value })}
-              data={options?.map(({ name, price }) => ({
+              defaultValue={`${index}`}
+              onChange={(value) => setIndex(+value)}
+              data={options?.map(({ name, price }, index) => ({
                 label: name,
-                value: `${price}`,
+                value: `${index}`,
                 el: (
                   <div>
                     <p>{name}</p>
@@ -83,13 +70,13 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
 
         <li>
           <p>수량</p>
-          <CustomNumberAdjuster onChange={(value) => dispatch({ name: 'count', value })} />
+          <CustomNumberAdjuster initValue={count} onChange={setCount} />
         </li>
       </ol>
 
       <div>
         <button type="submit" data-testid={TEST_ID.MENU_OPTION.SUBMIT_BUTTON}>
-          {state.amount}원 담기
+          {menu.options[index].price * count}원 담기
         </button>
       </div>
     </form>

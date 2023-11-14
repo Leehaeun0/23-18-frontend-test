@@ -1,12 +1,10 @@
-export interface MenuItemOption {
-  name?: string;
-  price: number;
-}
-
 export interface MenuItem {
   id: number;
   name: string;
-  options: MenuItemOption[];
+  options: {
+    name?: string;
+    price: number;
+  }[];
   image?: string;
   description?: string;
   isPopular?: boolean;
@@ -19,5 +17,11 @@ export interface Menus {
   menus: MenuItem[];
 }
 
-export type CartItemOption = MenuItemOption & { count: number };
-export type CartItem = MenuItem & { option: CartItemOption };
+export interface SelectedMenuItemOption {
+  selectedOption: {
+    index: number;
+    count: number;
+  };
+}
+
+export type SelectedMenuItem = MenuItem & SelectedMenuItemOption;

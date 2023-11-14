@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from 'react-router';
-import { CustomMenuOption } from '../../components';
 import { useCart } from '../../hooks/useCart';
 import { getStoreMenu } from '../../utils';
+import { SelectedMenuItem } from '../../types/Model';
+import { CustomMenuOption } from '../../components';
 
 const StoreOption = () => {
   const { storeId, menuId } = useParams();
@@ -11,7 +12,12 @@ const StoreOption = () => {
 
   const MENU = getStoreMenu(+storeId, +menuId);
 
-  return <CustomMenuOption menu={MENU} handleSubmit={addToCart} />;
+  const handleSubmit = (item: SelectedMenuItem) => {
+    addToCart(item);
+    navigate(`/store/${storeId}`);
+  };
+
+  return <CustomMenuOption menu={MENU} handleSubmit={handleSubmit} />;
 };
 
 export default StoreOption;

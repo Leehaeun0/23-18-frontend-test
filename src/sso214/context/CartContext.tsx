@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useCallback, useState } from 'react';
-import { CartItem } from '../types/Model';
+import { SelectedMenuItem } from '../types/Model';
 
 export interface CartContextProps {
-  cartList: CartItem[];
-  addToCart: (item: CartItem) => void;
+  cartList: SelectedMenuItem[];
+  addToCart: (item: SelectedMenuItem) => void;
 }
 
 export const CartContext = createContext<CartContextProps>({
@@ -19,7 +19,7 @@ export const CartProvider = ({
 }: PropsWithChildren<{ initialState?: CartContextProps['cartList'] }>) => {
   const [cartList, setCartList] = useState(initialState ?? []);
 
-  const addToCart = useCallback((item: CartItem) => {
+  const addToCart = useCallback((item: SelectedMenuItem) => {
     setCartList((prevState) => [...prevState, item]);
   }, []);
 

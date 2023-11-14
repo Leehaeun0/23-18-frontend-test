@@ -1,13 +1,16 @@
 import { getByRole, render } from '@testing-library/react';
-import { MenuList } from '../components';
 import menuData from '../constants/menu.json';
+import { MenuList } from '../components';
 import type { MenuListInterface } from '../types';
-
+import { BrowserRouter } from 'react-router-dom';
 const mockData: MenuListInterface = menuData;
 
+const renderMenuList = () => {
+  return render(<MenuList data={mockData} />, { wrapper: BrowserRouter });
+};
 describe('Menu Component', () => {
   it('should render Card component', () => {
-    const { getAllByRole } = render(<MenuList data={mockData} />);
+    const { getAllByRole } = renderMenuList();
 
     const { menus } = mockData;
 
@@ -27,7 +30,7 @@ describe('Menu Component', () => {
   });
 
   it('should render <span class="badge">인기</span> if isPopular is true', () => {
-    const { getAllByRole } = render(<MenuList data={mockData} />);
+    const { getAllByRole } = renderMenuList();
     const { menus } = mockData;
     const menuListItems = getAllByRole('listitem');
 
@@ -41,7 +44,7 @@ describe('Menu Component', () => {
   });
 
   it('should not render <span class="badge">인기</span> if isPopular is false', () => {
-    const { getAllByRole } = render(<MenuList data={mockData} />);
+    const { getAllByRole } = renderMenuList();
     const { menus } = mockData;
     const menuListItems = getAllByRole('listitem');
 
@@ -55,7 +58,7 @@ describe('Menu Component', () => {
   });
 
   it('should render image if data has imgUrl property', () => {
-    const { getAllByRole } = render(<MenuList data={mockData} />);
+    const { getAllByRole } = renderMenuList();
     const { menus } = mockData;
     const menuListItems = getAllByRole('listitem');
 
@@ -71,7 +74,7 @@ describe('Menu Component', () => {
   });
 
   it('should not render image if data has no imgUrl property', () => {
-    const { getAllByRole } = render(<MenuList data={mockData} />);
+    const { getAllByRole } = renderMenuList();
     const { menus } = mockData;
     const menuListItems = getAllByRole('listitem');
 

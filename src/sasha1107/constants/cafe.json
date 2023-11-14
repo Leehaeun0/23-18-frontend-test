@@ -1,0 +1,70 @@
+{
+  "storeId": 1,
+  "title": "카페",
+  "menus": [
+    {
+      "id": 1,
+      "name": "생 아메리카노",
+      "options": [
+        {
+          "price": 2800
+        }
+      ],
+      "image": "americano.png",
+      "description": "벤티 사이즈 (기본 일회용컵으로 제공)",
+      "isPopular": true,
+      "tags": []
+    },
+    {
+      "id": 2,
+      "name": "1리터 보틀 아메리카노",
+      "options": [
+        {
+          "price": 6300
+        }
+      ],
+      "image": "1L_americano.jpg",
+      "description": "감성에도 드디어 1리터 보틀이 출시되었어여 :)",
+      "isPopular": true,
+      "tags": ["사장님추천"]
+    },
+    {
+      "id": 3,
+      "name": "NEW) 시나몬 츄러스 (30cm)",
+      "options": [
+        {
+          "price": 3100
+        }
+      ],
+      "image": "chorus.jpg",
+      "description": "롯데월드, 에버랜드에서 먹던 그 느낌 그대로 겉바속촉",
+      "isPopular": false,
+      "tags": []
+    },
+    {
+      "id": 4,
+      "name": "리뉴얼) 수박주스 (100% 수박)",
+      "options": [
+        {
+          "price": 5200
+        }
+      ],
+      "image": "watermelon.jpg",
+      "description": "100% 수박차즙으로 만든 찐 수박주스",
+      "isPopular": true,
+      "tags": ["사장님추천"]
+    },
+    {
+      "id": 5,
+      "name": "1리터 네스퀵 초코라떼",
+      "options": [
+        {
+          "price": 8200
+        }
+      ],
+      "image": "nesquik.jpg",
+      "isPopular": true,
+      "tags": []
+    }
+  ]
+}

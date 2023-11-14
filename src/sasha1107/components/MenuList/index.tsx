@@ -1,5 +1,5 @@
-import Menu from './Menu';
-import type { MenuListInterface } from '../types';
+import { Menu } from '../../components';
+import type { MenuListInterface } from '../../types';
 
 const MenuList = ({ data }: { data: MenuListInterface }) => {
   const { title, menus } = data;

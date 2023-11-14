@@ -1,4 +1,3 @@
-import { screen } from '@testing-library/react';
 import { renderWithRouter, getStoreMenu } from '../../utils';
 import { TEST_ID } from '../../constant/TEST_ID';
 
@@ -104,45 +103,41 @@ describe('/store/:storeId/menu/:menuId', () => {
     expect(StoreDetailPageOrderButtonAmount()).toHaveTextContent(`${MENU.options[2].price * 3}원`);
   });
 
-  it.skip('브라우저의 뒤로가기 버튼 클릭 시, 장바구니에는 변동이 없고 /store/:storeId 경로로 이동한다.', async () => {
-    const {
-      MENU,
-      Name,
-      StoreDetailPageOrderButtonCount,
-      StoreDetailPageOrderButtonAmount,
-      clickRadio,
-      clickIncreaseButton,
-      clickSubmitButton,
-      clickStoreDetailItem,
-    } = renderStoreOption();
-
-    // await clickRadio(2);
-    // await clickIncreaseButton();
-    // await clickIncreaseButton();
-    // await clickSubmitButton();
-    //
-    // expect(StoreDetailPageOrderButtonCount()).toHaveTextContent('1');
-    // expect(StoreDetailPageOrderButtonAmount()).toHaveTextContent(`${MENU.options[2].price * 3}원`);
-    //
-    // await clickStoreDetailItem(0);
-    // await clickRadio(2);
-    // await clickIncreaseButton();
-    //
-    // expect(Name()).toHaveTextContent(MENU.name);
-
-    // window.history.go(`/store/1`);
-    // window.history.go(`/store/1/menu/1`);
-    window.history.pushState(null, null, '/store/1');
-    screen.debug();
-    window.history.pushState(null, null, '/store/1/menu/1');
-    screen.debug();
-    window.history.back();
-    screen.debug();
-
-    // expect(StoreDetailPageOrderButtonCount()).toHaveTextContent('1');
-    // expect(StoreDetailPageOrderButtonAmount()).toHaveTextContent(`${MENU.options[2].price * 3}원`);
-
-    // expect(StoreDetailPageOrderButtonCount()).toHaveTextContent('1');
-    // expect(StoreDetailPageOrderButtonAmount()).toHaveTextContent(`${MENU.options[2].price * 3}원`);
-  });
+  // it.skip('브라우저의 뒤로가기 버튼 클릭 시, 장바구니에는 변동이 없고 /store/:storeId 경로로 이동한다.', () => {
+  // const {
+  //   MENU,
+  //   Name,
+  //   StoreDetailPageOrderButtonCount,
+  //   StoreDetailPageOrderButtonAmount,
+  //   clickRadio,
+  //   clickIncreaseButton,
+  //   clickSubmitButton,
+  //   clickStoreDetailItem,
+  // } = renderStoreOption();
+  // await clickRadio(2);
+  // await clickIncreaseButton();
+  // await clickIncreaseButton();
+  // await clickSubmitButton();
+  //
+  // expect(StoreDetailPageOrderButtonCount()).toHaveTextContent('1');
+  // expect(StoreDetailPageOrderButtonAmount()).toHaveTextContent(`${MENU.options[2].price * 3}원`);
+  //
+  // await clickStoreDetailItem(0);
+  // await clickRadio(2);
+  // await clickIncreaseButton();
+  //
+  // expect(Name()).toHaveTextContent(MENU.name);
+  // window.history.go(`/store/1`);
+  // window.history.go(`/store/1/menu/1`);
+  // window.history.pushState(null, null, '/store/1');
+  // screen.debug();
+  // window.history.pushState(null, null, '/store/1/menu/1');
+  // screen.debug();
+  // window.history.back();
+  // screen.debug();
+  // expect(StoreDetailPageOrderButtonCount()).toHaveTextContent('1');
+  // expect(StoreDetailPageOrderButtonAmount()).toHaveTextContent(`${MENU.options[2].price * 3}원`);
+  // expect(StoreDetailPageOrderButtonCount()).toHaveTextContent('1');
+  // expect(StoreDetailPageOrderButtonAmount()).toHaveTextContent(`${MENU.options[2].price * 3}원`);
+  // });
 });

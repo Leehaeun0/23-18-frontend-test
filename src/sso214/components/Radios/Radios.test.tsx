@@ -11,8 +11,8 @@ function renderRadio(props?: Partial<Props>) {
     { label: '세번째 아이템', value: '3개', el: <p>세번째 아이템 : 3개</p> },
   ];
 
-  const mockOnClick = jest.fn();
-  const result = render(<CustomRadios name="list" onChange={mockOnClick} data={DATA} {...props} />);
+  const mockOnChange = jest.fn();
+  const result = render(<CustomRadios name="list" onChange={mockOnChange} data={DATA} {...props} />);
 
   const RadioGroup = () => result.getByTestId(TEST_ID.RADIOS.RADIO_GROUP);
   const RadioItems = () => result.queryAllByTestId(TEST_ID.RADIOS.RADIO_ITEM);
@@ -24,7 +24,7 @@ function renderRadio(props?: Partial<Props>) {
 
   return {
     DATA,
-    mockOnClick,
+    mockOnChange,
 
     RadioGroup,
     RadioItems,
@@ -72,18 +72,18 @@ describe('<Radios />', () => {
   });
 
   it('라디오 버튼을 클릭하면 이벤트가 올바르게 호출된다.', async () => {
-    const { DATA, clickRadio, mockOnClick, RadioGroup } = renderRadio();
+    const { DATA, clickRadio, mockOnChange, RadioGroup } = renderRadio();
 
     await clickRadio(2);
-    expect(mockOnClick).toHaveBeenCalledTimes(1);
-    expect(mockOnClick).toHaveBeenLastCalledWith(DATA[2].value);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
+    expect(mockOnChange).toHaveBeenLastCalledWith(DATA[2].value);
 
     await clickRadio(0);
-    expect(mockOnClick).toHaveBeenCalledTimes(2);
-    expect(mockOnClick).toHaveBeenLastCalledWith(DATA[0].value);
+    expect(mockOnChange).toHaveBeenCalledTimes(2);
+    expect(mockOnChange).toHaveBeenLastCalledWith(DATA[0].value);
 
     await clickRadio(1);
-    expect(mockOnClick).toHaveBeenCalledTimes(3);
+    expect(mockOnChange).toHaveBeenCalledTimes(3);
     expect(RadioGroup()).toHaveFormValues({ list: DATA[1].value });
   });
 });

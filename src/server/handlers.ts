@@ -4,7 +4,11 @@ import { getStoreMenu } from './data';
 const storeMenu = getStoreMenu();
 
 const getStore = http.get('/api/store/:storeId', () => {
-  return HttpResponse.json({ storeMenu });
+  return HttpResponse.json({
+    openHour: 11,
+    closeHour: 21,
+    storeMenu,
+  });
 });
 
 const getMenu = http.get('/api/store/:storeId/menu/:menuId', ({ params }) => {

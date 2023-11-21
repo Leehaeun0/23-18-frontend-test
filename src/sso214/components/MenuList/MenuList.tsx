@@ -1,35 +1,57 @@
-import { useCallback } from 'react';
-import { List } from '../List';
-import { Heading } from '../Heading';
-import { Menu } from '../Menu';
-import { MenuInfo } from '../Menu/types';
+import { useCallback, useMemo } from 'react';
+import { Menus, MenuItem, SelectedMenuItem } from '../../types/Model';
+import { sumMenusTotalAmount } from '../../utils';
+import { TEST_ID } from '../../constant/TEST_ID';
+import { CustomList } from '../List';
+import { CustomHeading } from '../Heading';
+import { CustomMenu } from '../Menu';
+import { CustomButton } from '../Button';
 import S from './style.module.css';
 
 interface Props {
-  title: string;
-  menus: MenuInfo[];
+  storeMenus: Menus;
+  selectedMenus: SelectedMenuItem[];
+  handleClickItem: (menuId: MenuItem['id']) => void;
 }
 
-const MenuList = ({ title, menus }: Props) => {
+const MenuList = ({ storeMenus, selectedMenus, handleClickItem }: Props) => {
+  const { title, menus } = storeMenus;
+
+  const [itemCount, totalAmount] = useMemo(() => {
+    const count = selectedMenus.length;
+    const amount = sumMenusTotalAmount(selectedMenus);
+    return [count, amount];
+  }, [selectedMenus]);
+
+  const keyExtractor = useCallback((item: MenuItem) => item.name, []);
   const renderItem = useCallback(
-    ({ item }: { item: MenuInfo }) => <Menu data-testid="item" menu={item} />,
-    [],
+    ({ item }: { item: MenuItem }) => (
+      <CustomMenu menu={item} data-testid={TEST_ID.MENU_LIST.ITEM} onClick={() => handleClickItem(item.id)} />
+    ),
+    [handleClickItem],
   );
-  const keyExtractor = useCallback((item: MenuInfo) => item.name, []);
 
   return (
     <>
-      <Heading headingLevel="h2" className={S.title} data-testid="title">
+      <CustomHeading headingLevel="h2" className={S.title} data-testid={TEST_ID.MENU_LIST.TITLE}>
         {title}
-      </Heading>
+      </CustomHeading>
 
-      <List<MenuInfo>
+      <CustomList<MenuItem>
         containerTag="ul"
-        data={menus}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        data-testid="list"
+        data={menus}
+        data-testid={TEST_ID.MENU_LIST.LIST}
       />
+
+      {selectedMenus.length > 0 && (
+        <CustomButton variant="first" size="large" flexible data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON}>
+          <span data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON_COUNT}>{itemCount}</span>
+          <span>주문하기</span>
+          <span data-testid={TEST_ID.MENU_LIST.ORDER_BUTTON_AMOUNT}>{totalAmount}원</span>
+        </CustomButton>
+      )}
     </>
   );
 };

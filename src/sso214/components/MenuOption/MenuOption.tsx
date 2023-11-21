@@ -1,55 +1,43 @@
-import { useReducer } from 'react';
-import { MenuInfo } from '../Menu/types';
-import Heading from '../Heading/Heading';
-import NumberAdjuster from '../NumberAdjuster/NumberAdjuster';
-import Radios from '../Radios/Radios';
-
-interface FormValue {
-  price: number;
-  quantity: number;
-  amount: number;
-}
+import { FormEvent, useState } from 'react';
+import { MenuItem, SelectedMenuItem } from '../../types/Model';
+import { TEST_ID } from '../../constant/TEST_ID';
+import { CustomHeading } from '../Heading';
+import { CustomNumberAdjuster } from '../NumberAdjuster';
+import { CustomRadios } from '../Radios';
 
 interface Props {
-  menu: MenuInfo;
-  handleSubmit: (value: FormValue) => void;
+  menu: MenuItem;
+  handleSubmit: (item: SelectedMenuItem) => void;
 }
 
 const MenuOption = ({ menu, handleSubmit }: Props) => {
   const { name, options, image, description, isPopular } = menu;
   const isMultiOption = options.length > 1;
 
-  function reducer(state: FormValue, action: { name: keyof FormValue; value: FormValue[keyof FormValue] }) {
-    const multiplyTarget = action.name === 'price' ? state.quantity : state.price;
-    return {
-      ...state,
-      [action.name]: action.value,
-      amount: multiplyTarget * action.value,
-    };
-  }
+  const [index, setIndex] = useState(0);
+  const [count, setCount] = useState(1);
 
-  const [state, dispatch] = useReducer(reducer, {
-    price: options[0].price || 0,
-    quantity: 1,
-    amount: options[0].price || 0,
-  });
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    handleSubmit({ ...menu, selectedOption: { index, count } });
+  };
 
   return (
-    <form data-testid="form" onSubmit={() => handleSubmit(state)}>
-      {image && <img src={image} alt={name} data-testid="image" />}
+    <form data-testid={TEST_ID.MENU_OPTION.FORM} onSubmit={onSubmit}>
+      {image && <img src={image} alt={name} data-testid={TEST_ID.MENU_OPTION.IMAGE} />}
 
       <div>
-        <Heading headingLevel="h3" data-testid="name">
-          {isPopular && <span data-testid="popular">인기</span>}
+        <CustomHeading headingLevel="h3" data-testid={TEST_ID.MENU_OPTION.NAME}>
+          {isPopular && <span data-testid={TEST_ID.MENU_OPTION.POPULAR}>인기</span>}
           {name}
-        </Heading>
+        </CustomHeading>
 
-        {description && <p data-testid="description">{description}</p>}
+        {description && <p data-testid={TEST_ID.MENU_OPTION.DESCRIPTION}>{description}</p>}
 
         {!isMultiOption && (
-          <div data-testid="price">
-            <Heading headingLevel="h4">가격</Heading>
-            <Heading headingLevel="h4">${options[0].price}원</Heading>
+          <div data-testid={TEST_ID.MENU_OPTION.PRICE}>
+            <CustomHeading headingLevel="h4">가격</CustomHeading>
+            <CustomHeading headingLevel="h4">${options[0].price}원</CustomHeading>
           </div>
         )}
       </div>
@@ -58,16 +46,17 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
         {isMultiOption && (
           <li>
             <div>
-              <Heading headingLevel="h4">가격</Heading>
+              <CustomHeading headingLevel="h4">가격</CustomHeading>
               <span>필수</span>
             </div>
 
-            <Radios
+            <CustomRadios
               name="prices"
-              onChange={(value) => dispatch({ name: 'price', value: +value })}
-              data={options?.map(({ name, price }) => ({
+              defaultValue={`${index}`}
+              onChange={(value) => setIndex(+value)}
+              data={options?.map(({ name, price }, index) => ({
                 label: name,
-                value: `${price}`,
+                value: `${index}`,
                 el: (
                   <div>
                     <p>{name}</p>
@@ -81,13 +70,13 @@ const MenuOption = ({ menu, handleSubmit }: Props) => {
 
         <li>
           <p>수량</p>
-          <NumberAdjuster onChange={(value) => dispatch({ name: 'quantity', value })} />
+          <CustomNumberAdjuster initValue={count} onChange={setCount} />
         </li>
       </ol>
 
       <div>
-        <button type="submit" data-testid="submitButton">
-          {state.amount}원 담기
+        <button type="submit" data-testid={TEST_ID.MENU_OPTION.SUBMIT_BUTTON}>
+          {menu.options[index].price * count}원 담기
         </button>
       </div>
     </form>

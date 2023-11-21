@@ -1,10 +1,12 @@
 import { render } from '@testing-library/react';
-import Heading, { Props, HEADING_LEVEL } from './Heading';
+import { TEST_ID } from '../../constant/TEST_ID';
+import { Props, HEADING_LEVEL } from './Heading';
+import { CustomHeading } from './index';
 
 function renderHeading(props: Props) {
-  const result = render(<Heading {...props} />);
+  const result = render(<CustomHeading {...props} />);
 
-  const HeadingEl = () => result.getByTestId('heading');
+  const HeadingEl = () => result.getByTestId(TEST_ID.HEADING.HEADING);
 
   return {
     HeadingEl,

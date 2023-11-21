@@ -1,1 +1,1 @@
-export { default as MenuOption } from './MenuOption';
+export { default as CustomMenuOption } from './MenuOption';

@@ -16,7 +16,7 @@ const MENU_ITEM = {
 };
 
 describe('MenuDetailPage Component 랜더링 테스트', () => {
-  it('메뉴 이미지 랜더링 된다', () => {
+  it('메뉴 이미지가 랜더링 된다', () => {
     const { getByAltText } = render(<MenuDetailPage data={MENU_ITEM} />);
 
     const image = getByAltText(MENU_ITEM.name);

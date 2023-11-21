@@ -13,4 +13,5 @@ export interface MenuItemType {
   description?: string;
   isPopular?: boolean;
   tags?: string[];
+  minOrderPrice?: number;
 }

@@ -5,10 +5,10 @@
 - 메뉴 목록 조회 API 응답에 `openHour`, `closeHour` 추가
   - `openHour`, `closeHour`는 가게의 영업시간을 나타냅니다.
   - `GET /api/store/:storeId`
-  ```ts
+  ```diff
   {
-    openHour: number;
-    closeHour: number;
+  + openHour: number;
+  + closeHour: number;
     storeMenu: MenuList[];
   }
   ```

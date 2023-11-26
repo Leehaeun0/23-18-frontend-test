@@ -6,6 +6,8 @@
 
 ### 환경 구성
 
+- `playwright` 설치
+  - `npx playwright install`
 - `e2e-example` 디렉토리에 있는 설정 파일들을 복사
   - `index.html`
   - `playwright.config.ts`

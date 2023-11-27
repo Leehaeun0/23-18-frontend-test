@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MenuList } from '../server/data';
 
 const Home = () => {
+  const [data, setData] = useState<{ storeMenu: MenuList[] } | null>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/store/1234')
+      .then((res) => res.json())
+      .then(setData)
+      .catch(console.error);
+  }, []);
+
   return (
     <main>
       <h1>Home</h1>
+      <p>{JSON.stringify(data?.storeMenu)}</p>
       <a href="/counter">counter</a>
     </main>
   );

@@ -3,6 +3,7 @@ import MenuDetailPage from './MenuDetailPage';
 import userEvent from '@testing-library/user-event';
 
 const MENU_ITEM = {
+  id: '1',
   name: '[꼬마] 새우마요김밥',
   options: [
     { name: '1줄', price: 1500 },

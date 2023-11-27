@@ -1,9 +1,11 @@
 import { MenuListType } from '../types/menu';
 
 export const MENU_DATA: MenuListType = {
+  id: '1',
   title: '따끈한 삼첩분식 신상',
   menus: [
     {
+      id: '1',
       name: '[꼬마] 새우마요김밥',
       options: [
         { name: '1줄', price: 1500 },
@@ -16,6 +18,7 @@ export const MENU_DATA: MenuListType = {
       tags: ['사장님 추천', '배민 추천'],
     },
     {
+      id: '2',
       name: '[부산] 가래떡 떡볶이',
       options: [{ price: 5900 }],
       image: 'image02.png',
@@ -24,6 +27,7 @@ export const MENU_DATA: MenuListType = {
       tags: ['사장님 추천'],
     },
     {
+      id: '3',
       name: '물떡 & 어묵탕',
       options: [{ price: 4900 }],
       image: 'image03.png',
